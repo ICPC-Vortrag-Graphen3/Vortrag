@@ -1,0 +1,151 @@
+%% LaTeX-Beamer template for KIT design
+%% by Erik Burger, Christian Hammer
+%% title picture by Klaus Krogmann
+%%
+%% version 2.1
+%%
+%% mostly compatible to KIT corporate design v2.0
+%% http://intranet.kit.edu/gestaltungsrichtlinien.php
+%%
+%% Problems, bugs and comments to
+%% burger@kit.edu
+
+\documentclass[18pt]{beamer}
+
+%% SLIDE FORMAT
+
+% use 'beamerthemekit' for standard 4:3 ratio
+% for widescreen slides (16:9), use 'beamerthemekitwide'
+% for widescreen slide without sidebar use 'beamerthemekitwidenosidebar'
+
+\usepackage{templates/beamerthemekitwide}
+%\usepackage{templates/beamerthemekitwide}
+%\usepackage{templates/beamerthemekitwidenosidebar}
+
+% use this to disable the latex beamer navigation symbols
+\beamertemplatenavigationsymbolsempty
+
+
+%% TITLE PICTURE
+
+% if a custom picture is to be used on the title page, copy it into the 'logos'
+% directory, in the line below, replace 'mypicture' with the
+% filename (without extension) and uncomment the following line
+% (picture proportions: 63 : 20 for standard, 169 : 40 for wide
+% *.eps format if you use latex+dvips+ps2pdf,
+% *.jpg/*.png/*.pdf if you use pdflatex)
+
+%\titleimage{mypicture}
+
+%% TITLE LOGO
+
+% for a custom logo on the front page, copy your file into the 'logos'
+% directory, insert the filename in the line below and uncomment it
+
+%\titlelogo{mylogo}
+
+% (*.eps format if you use latex+dvips+ps2pdf,
+% *.jpg/*.png/*.pdf if you use pdflatex)
+
+%% TikZ INTEGRATION
+
+% use these packages for PCM symbols and UML classes
+% \usepackage{templates/tikzkit}
+% \usepackage{templates/tikzuml}
+
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usetikzlibrary{arrows}
+\usetikzlibrary{fit}
+\usetikzlibrary{shapes}
+\usetikzlibrary{calc}
+
+
+% https://tex.stackexchange.com/questions/55806/mindmap-tikzpicture-in-beamer-reveal-step-by-step/55849#55849
+\tikzset{
+    invisible/.style={opacity=0},
+    visible on/.style={alt={#1{}{invisible}}},
+    alt/.code args={<#1>#2#3}{%
+        \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}} % \pgfkeysalso doesn't change the path
+    },
+}
+
+% the presentation starts here
+
+\title[Graphen III]{Graphen 3:\\ Maximum Flow, Bipartite Matching}
+\subtitle{Ford-Fulkerson, Edmond-Karp, Max Flow, Min Cut, MCBM, Bipartite Graphen, Vertex Cover, König}
+\author{Peter Koepernik, Robert Brede, Serge Thilges, Jean-Pierre ???}
+
+\institute{Basispraktikum zum ICPC Programmierwettbewerb}
+
+% Bibliography
+
+\usepackage[citestyle=authoryear,bibstyle=numeric,hyperref,backend=biber]{biblatex}
+\addbibresource{templates/example.bib}
+\bibhang1em
+
+\begin{document}
+
+% change the following line to "ngerman" for German style date and logos
+\selectlanguage{ngerman}
+
+%title page
+\begin{frame}
+\titlepage
+\end{frame}
+
+%table of contents
+\begin{frame}{Gliederung}
+\tableofcontents
+\end{frame}
+
+\input{robert/main.tex}
+\input{serge/main.tex}
+\input{peter/main.tex}
+\input{jean-pierre/main.tex}
+
+\subsection{Subsection 1.2}
+\begin{frame}{Example slide B}
+\begin{block}{Block 1}
+\begin{itemize}
+\item Bullet point 1
+\pause
+\item Bullet point 2
+\item \dots
+\end{itemize}
+\end{block}
+\end{frame}
+
+\section{Section 2}
+\begin{frame}{Example slide C}
+\begin{exampleblock}{Example 1}
+\begin{itemize}
+\item Bullet point 1
+\pause
+\item Bullet point 2
+\item \dots
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}{Example slide D}
+\begin{alertblock}{Alert 1}
+\begin{itemize}
+\item Bullet point 1
+\pause
+\item Bullet point 2
+\item \dots
+\end{itemize}
+\end{alertblock}
+\end{frame}
+
+\appendix
+\beginbackup
+
+\begin{frame}[allowframebreaks]{References}
+\printbibliography
+\end{frame}
+
+\backupend
+
+\end{document}
