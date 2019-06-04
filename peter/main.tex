@@ -85,7 +85,7 @@ F"ur \(G\) bipartit: \enquote{Maximum Cardinality Bipartite Matching}, kurz \tex
             \path[selected edge] (\source.center) -- (\dest.center);
     \end{pgfonlayer}
 \end{tikzpicture}
-\pause\caption*{\large \textbf{Kein} Matching}
+\caption*{\large \only<3>{Kein Matching}}
 \end{figure}
 \end{frame}
 
@@ -202,7 +202,7 @@ Gegeben eine Liste \(N\) von nat"urlichen Zahlen und \(a, b \in N \ (a \neq b)\)
 \end{figure}
 \end{frame}
 
-\subsection{Augmenting Paths}
+\subsection{MCBM mit Augmenting Paths}
 
 \begin{frame}{MCBM mit Augmenting Paths}
 \setbeamercovered{invisible}
@@ -242,7 +242,7 @@ M' \defas M \setminus P \cup P \setminus M, \text{ wobei } P \defas \set{\set{v_
 Gegeben: bipartiter Graph \(G = (V, E)\).
 \begin{itemize}
 \pause\item[(1)] Initialisiere \(M \defas \varnothing\).
-\pause\item[(2)] Suche (greedy) einen Augmenting Path. Gebe \(M\) aus, falls keinen gefunden.
+\pause\item[(2)] Suche einen Augmenting Path. Gebe \(M\) aus, falls keinen gefunden.
 \pause\item[(3)] Flippe die Kanten entlang des gefundenen Pfades. Gehe zu (2).
 \end{itemize}\pause
 Findet MCBM in Laufzeit \(O(|V|\cdot |E|)\).
