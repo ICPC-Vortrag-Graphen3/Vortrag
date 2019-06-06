@@ -1,0 +1,125 @@
+
+\tikzset{onslide/.code args={<#1>#2}{%
+		\only<#1>{\pgfkeysalso{#2}} % \pgfkeysalso doesn't change the path
+}}
+\tikzset{temporal/.code args={<#1>#2#3#4}{%
+		\temporal<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}}{\pgfkeysalso{#4}} % \pgfkeysalso doesn't change the path
+}}
+
+\section[IS und VC]{Independent Set und Vertex Cover}
+
+\subsection{Definition}
+\begin{frame}{Independent Set}
+	\vspace{-0.5cm}
+	\begin{block}{Definition}
+		Gegeben einen Graphen $G$. Ein Independent Set $IS$ ist eine Menge von Knoten, sodass keine zwei Knoten in $IS$ über eine Kante in $G$ verbunden sind.
+	\end{block}
+
+	\begin{figure}
+		\begin{tikzpicture}[scale=1.3, auto,swap]
+		\node[shape=circle,draw=black,onslide=<2>{fill=lightgray}] (A) at (0,0) {A};
+		\node[shape=circle,draw=black,onslide=<2>{fill=lightgray}, below=of A] (B) {B};
+		\node[shape=circle,draw=black,onslide=<3->{fill=lightgray}, right= 2cm of A] (C) {C};
+		\node[shape=circle,draw=black,onslide=<3->{fill=lightgray}, below=of C] (D) {D};
+		\node[shape=circle,draw=black,onslide=<3->{fill=lightgray}, below=of D] (E) {E};
+		
+		\path [-] (A) edge (C);
+		\path [-] (A) edge (D);
+		\path [-] (A) edge (E);
+		\path [-] (B) edge (C);
+		\path [-] (B) edge (D);
+		\path [-] (B) edge (E);		
+		\end{tikzpicture}
+	\end{figure}
+	\uncover<4->{In der Regel wird nach einem möglichst großen Independent Set gesucht.}
+\end{frame}
+
+\begin{frame}{Vertex Cover}
+	\vspace{-0.5cm}
+	\begin{block}{Definition}
+		Gegeben einen Graphen $G$. Ein Vertex Cover $VC$ ist eine Menge von Knoten, sodass jede Kante in $G$ mit mindestens einem Knoten aus $VC$ verbunden ist.
+	\end{block}
+
+	\begin{figure}
+		\begin{tikzpicture}[scale=1.3, auto,swap]
+		\node[shape=circle,draw=black,onslide=<3->{fill=lightgray}] (A) at (0,0) {A};
+		\node[shape=circle,draw=black,onslide=<3->{fill=lightgray}, below=of A] (B) {B};
+		\node[shape=circle,draw=black,onslide=<2>{fill=lightgray}, right= 2cm of A] (C) {C};
+		\node[shape=circle,draw=black,onslide=<2>{fill=lightgray}, below=of C] (D) {D};
+		\node[shape=circle,draw=black,onslide=<2>{fill=lightgray}, below=of D] (E) {E};
+		
+		\path [-] (A) edge (C);
+		\path [-] (A) edge (D);
+		\path [-] (A) edge (E);
+		\path [-] (B) edge (C);
+		\path [-] (B) edge (D);
+		\path [-] (B) edge (E);		
+		\end{tikzpicture}
+	\end{figure}
+	\uncover<4->{In der Regel wird nach einem möglichst kleinen Vertex Cover gesucht.}
+\end{frame}
+
+\subsection{Sätze}
+\begin{frame}{Zusammenhang zwischen IS und VC}
+	\begin{block}{Satz}
+		Sei $G=(V,E)$ eine Graph und $X\subseteq V$ eine Menge von Knoten. Dann gilt:
+		\[X\text{ ist ein VC von $G$} \Longleftrightarrow V\setminus X\text{ ist ein IS von $G$}\]
+	\end{block}
+	\pause
+	\textbf{Beweis:}
+	\begin{itemize}
+		\item Sei $X$ ein beliebiges VC. Wir behaupten, dass $V\setminus X$ ein IS ist.
+		\item Nehmen wir also das Gegenteil an und führen dies zum Widerspruch:
+		\pause
+		\begin{itemize}
+			\item Angenommen es würde $\{u,v\}\subseteq V\setminus X, u\neq v$ existieren mit $(u,v)\in E$
+			\item Dann wäre aber $u,v\notin X$ und die Kante $(u,v)$ wäre vom VC $X$ nicht abgedeckt $\Rightarrow$ Widerspruch!
+		\end{itemize}
+		\pause
+		\item Die andere Richtung folgt ähnlich
+	\end{itemize}
+\end{frame}
+\begin{frame}{Größe von IS und VC}
+	Es ist trivial beliebige IS oder VC anzugeben. Deswegen suchen wir in der Regel nach möglichst großen IS und möglichst kleinen VC. Das wollen wir formalisieren:
+	\pause
+	\begin{block}{Definition}
+		Ein IS/VC ist \textbf{inklusions maximal/minimal}, wenn kein Knoten hinzugefügt/entfernt werden kann ohne die Eigenschaft des IS/VC zu behalten.\\
+		\pause
+		Ein IS/VC ist \textbf{kardinalitäts maximal/minimal}, wenn kein größeres/kleineres IS/VC existiert.
+	\end{block}
+	\pause
+	\begin{block}{Bemerkung}
+		Ein kardinalitätsmaximales IS oder ein kardinalitätsminimales VC auszurechnen is $NP$-schwer.
+	\end{block}
+\end{frame}
+\begin{frame}{Satz von König}
+	\begin{block}{Satz (von Dénes König)}
+		In einem bipartiten Graphen ist die Größe eines kardinalitätsminimalem Vertex Cover (VC) gleich der Größe eines Max Cardinality Bipartite Matching (MCBM).
+	\end{block}
+	\pause
+	Etwas informeller aufgeschrieben erhalten wir damit $|VC| = |MCBM|$.\\
+	Und mit unserem Wissen aus dem vorangegangenen Satz folgt: $|V| = |VC| + |IS| = |MCBM| + |IS|$\\
+	\pause
+	\vspace{0.5cm}
+	Mit diesem Satz und den uns bekannten Verfahren erhalten wir nur die Größen der Mengen nicht aber deren Elemente. Um auch an die Elemente der Mengen ran zu kommen, braucht es noch mehr Verfahren. Die Mengen sind allerdings nicht eindeutig.
+\end{frame}
+
+\begin{frame}{Guardian of Decency}
+	\vspace{-0.3cm}
+	\begin{block}{Aufgabe}
+		Gegeben sind $N\leq 500$ Schüler, beschrieben durch Größe, Geschlecht und Musikgeschmack. Der Lehrer möchte wissen wie viele Schüler maximal auf Klassenfahrt kommen können, ohne dass die Gefahr besteht, dass zwei Schüler ein Paar werden.
+		Zwei Schüler laufen Gefahr ein Paar zu werden, wenn sie ein unterschiedliches Geschlecht, maximal 40cm Größendifferenz und einen gleichen Musikgeschmack haben.
+	\end{block}
+	\pause
+	\textbf{Lösungsansatz:}
+	\begin{itemize}
+		\setlength\itemsep{0.05em}
+		\item Modelliere das Problem als Graphen mit den Schülern als Knoten
+		\item Verbinde Schüler, wenn sie ein Paar werden könnten
+		\pause
+		\item Suche nach einem maximalem IS
+		\pause
+		\item nutze dafür aus dass der Graph bipartit ist, indem Männchen und Weibchen voneinander getrennt werden
+		\item Berechne mittels Flow ein MCBM und daraus die Größe von IS
+	\end{itemize}
+\end{frame}
