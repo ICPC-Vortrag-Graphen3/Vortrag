@@ -6,8 +6,15 @@
 \tikzstyle{source}=[circle, fill=red!25]
 \tikzstyle{target} = [circle, fill=blue!25]
 \tikzstyle{otherCollector} = [circle, fill=green!25]
-\tikzstyle{card} = [circle, fill=black!25]
+\tikzstyle{vertex} = [circle, fill=black!25]
 \tikzstyle{edge} = [->,thick]
+\tikzset{
+    over line/.style={
+      fill=white,
+      inner sep=0pt,
+      circle
+    },
+  }
 
 
 \section{UVa 10779 - Collector's Problem}
@@ -28,39 +35,39 @@
 
 \subsection{Lösung}
 
-\begin{frame}{Einmaliger "greedy" Tausch}
+\begin{frame}{Einmaliger \enquote{greedy} Tausch}
     \begin{figure}
         \begin{tikzpicture}[scale=0.7]
             \node[source, visible on=<{1-4, 8-}>] (BobS) at (0,0) {BobS};
             \node[target, visible on=<{1-4, 8-}>] (BobT) at (13,0) {BobT};
             \foreach \i in {1,...,5} {
-                \node[card, visible on=<{2-4, 8-}>] (BobWantsType_\i) at (10, {2*(\i-3)}) {$\i_{w}$};
-                \draw[edge, visible on=<{2-4, 8-}>] (BobWantsType_\i) -- (BobT) node [midway, above, sloped]
+                \node[vertex, visible on=<{2-4, 8-}>] (BobWantsType_\i) at (10, {2*(\i-3)}) {$\i_{w}$};
+                \draw[edge, visible on=<{2-4, 8-}>] (BobWantsType_\i) -- (BobT) node [midway, above]
                 (wantToBob_\i) {$1$};
             }
             \foreach \i/\amount in {{1/2}, {3/1}, {4/2}, {5/3}}
             {
-                \node[card, visible on=<{3-4, 8-}>] (BobHasType_\i) at (3, {2*(\i-3)}) {$\i_{h}$};
-                \draw [edge, visible on=<{3-4, 8-}>] (BobS) -- (BobHasType_\i) node [midway, above, sloped]
+                \node[vertex, visible on=<{3-4, 8-}>] (BobHasType_\i) at (3, {2*(\i-3)}) {$\i_{h}$};
+                \draw [edge, visible on=<{3-4, 8-}>] (BobS) -- (BobHasType_\i) node [midway, above]
                 (amount_\i) {$\amount$};
-                \draw [edge, visible on=<{4, 8-}>] (BobHasType_\i) -- (BobWantsType_\i) node [midway, above, sloped]
+                \draw [edge, visible on=<{4, 8-}>] (BobHasType_\i) -- (BobWantsType_\i) node [midway, above]
                 (hasToWant_\i) {$1$};
             }
             \node[otherCollector, visible on=<{5-}>] (A) at (6.5,-2) {A};
             \foreach \i in {1,4}
             {
-                \node[card, visible on=<{6-7}>] (AWantsType_\i) at (3, {2*(\i-3)}) {$\i$};
-                \draw [edge, visible on=<{6-7}>] (AWantsType_\i) -- (A) node [midway, above, sloped]
+                \node[vertex, visible on=<{6-7}>] (AWantsType_\i) at (3, {2*(\i-3)}) {$\i$};
+                \draw [edge, visible on=<{6-7}>] (AWantsType_\i) -- (A) node [pos=0.35, above]
                 (asWantToA_\i) {$1$};
-                \draw [edge, visible on=<{8-}>] (BobHasType_\i) -- (A) node [midway, above, sloped]
+                \draw [edge, visible on=<{8-}>] (BobHasType_\i) -- (A) node [pos=0.35, above]
                 (bobHasToA_\i) {$1$};
             }
             \foreach \i/\amount in {{2/3}}
             {
-                \node[card, visible on=<{7}>] (AHasType_\i) at (10, {2*(\i-3)}) {$\i$};
-                \draw [edge, visible on=<{7}>] (A) -- (AHasType_\i) node [midway, above, sloped]
+                \node[vertex, visible on=<{7}>] (AHasType_\i) at (10, {2*(\i-3)}) {$\i$};
+                \draw [edge, visible on=<{7}>] (A) -- (AHasType_\i) node [midway, above]
                 (asToHas_\i) {$\amount$};
-                \draw [edge, visible on=<{8-}>] (A) -- (BobWantsType_\i) node [midway, above, sloped]
+                \draw [edge, visible on=<{8-}>] (A) -- (BobWantsType_\i) node [midway, above]
                 (asToBobWants_\i) {$\amount$};
             }
 
@@ -74,16 +81,16 @@
             \node[source, visible on=<{1-}>] (BobS) at (0,0) {BobS};
             \node[target, visible on=<{1-}>] (BobT) at (13,0) {BobT};
             \foreach \i in {1,...,5} {
-                \node[card, visible on=<{1-}>] (BobWantsType_\i) at (10, {2*(\i-3)}) {$\i_{w}$};
-                \draw[edge, visible on=<{1-}>] (BobWantsType_\i) -- (BobT) node [midway, above, sloped]
+                \node[vertex, visible on=<{1-}>] (BobWantsType_\i) at (10, {2*(\i-3)}) {$\i_{w}$};
+                \draw[edge, visible on=<{1-}>] (BobWantsType_\i) -- (BobT) node [midway, above]
                 (wantToBob_\i) {$1$};
             }
             \foreach \i/\amount in {{1/2}, {2/0}, {3/1}, {4/2}, {5/3}}
             {
-                \node[card, visible on=<{1-}>] (BobHasType_\i) at (3, {2*(\i-3)}) {$\i_{h}$};
-                \draw [edge, visible on=<{1-}>] (BobS) -- (BobHasType_\i) node [midway, above, sloped]
+                \node[vertex, visible on=<{1-}>] (BobHasType_\i) at (3, {2*(\i-3)}) {$\i_{h}$};
+                \draw [edge, visible on=<{1-}>] (BobS) -- (BobHasType_\i) node [midway, above]
                 (amount_\i) {$\amount$};
-                \draw [edge, visible on=<{1-}>] (BobHasType_\i) -- (BobWantsType_\i) node [midway, above, sloped]
+                \draw [edge, visible on=<{1-}>] (BobHasType_\i) -- (BobWantsType_\i) node [midway, above]
                 (hasToWant_\i) {$1$};
             }
             \begin{pgfonlayer}{bg}
@@ -92,12 +99,12 @@
             \node[otherCollector, visible on=<{2-}>] (A) at (6.5,-1) {A};
             \foreach \i in {1,4}
             {
-                \draw [edge, visible on=<{2-}>] (BobHasType_\i) -- (A) node [midway, above, sloped]
+                \draw [edge, visible on=<{2-}>] (BobHasType_\i) -- (A) node [pos=0.35, above]
                 (bobHasToA_\i) {$1$};
             }
             \foreach \i/\amount in {{2/3}}
             {
-                \draw [edge, visible on=<{2-}>] (A) -- (BobHasType_\i) node [midway, above, sloped]
+                \draw [edge, visible on=<{2-}>] (A) -- (BobHasType_\i) node [midway, above]
                 (asToBobWants_\i) {$\amount$};
             }
 
@@ -112,49 +119,88 @@
 \begin{frame}{Vereinfachung}
     \begin{figure}
         \begin{tikzpicture}[scale=0.7]
-            \node[source, visible on=<{1-}>] (BobS) at (0,-3) {BobS};
-            \node[target, visible on=<{1-}>] (BobT) at (0,3) {BobT};
-            \foreach \i/\amount in {{1/1}, {2/0}, {3/0}, {4/2}, {5/3}}
+            \node[source, visible on=<{3-}>] (BobS) at (0,-3) {BobS};
+            \node[source, visible on=<{1-2}>] (BobStemp) at (0, 0) {BobS};
+            \node[target, visible on=<{3-}>] (BobT) at (0,3) {BobT};
+            \node[target, visible on=<{1-2}>] (BobTtemp) at (12,0) {BobT};
+            \foreach \i/\amounts/\a in {{1/{{3-6/1}, {7-/0}}/1}, {2/{{3-/0}}/0}, {3/{{3-7/1}, {8-/0}}/1}, {4/{{3-8/2}, {9/1}, {10-/0}}/2}, {5/{{3-10/3}, {11-/2}}/3}}
             {
-                \node[card, visible on=<{1-}>] (Type_\i) at (5, {2*(\i-3)}) {$\i_{h}$};
-                \draw [edge, visible on=<{1-}>] (BobS) -- (Type_\i) node [pos=0.7, above, sloped]
-                (amount_\i) {$\amount$};
-                \draw [edge, visible on=<{1-}>] (Type_\i) -- (BobT) node [pos=0.7,
-                above, sloped] {$1$};
+                \node[vertex, visible on=<{1-}>] (Type_\i) at (5, {2*(\i-3)}) {$\i_{h}$};
+                \draw [edge, visible on=<{1-2}>] (BobStemp) -- (Type_\i) node [pos=0.7, above]
+                (amount_\i) {$\a$};
+                \node[vertex, visible on=<{1}>] (BobWantsType_\i) at (8, {2*(\i-3)}) {$\i_{w}$};
+                \draw [edge, visible on=<{1}>] (Type_\i) -- (BobWantsType_\i) node [midway, above]
+                (hasToWant_\i) {$1$};
+                \draw[edge, visible on=<{1}>] (BobWantsType_\i) -- (BobTtemp) node [midway, above]
+                (wantToBob_\i) {$1$};
+                \draw [edge, visible on=<{2}>] (Type_\i) -- (BobTtemp) node [midway, above]
+                (hasToWant_\i) {$1$};
+                \foreach \on/\amount in \amounts {
+                    \draw [edge, visible on=<{\on}>] (BobS) -- (Type_\i) node
+                    [pos=0.7, over line] {$\amount$};
+                }
+                \draw [edge, visible on=<{3-}>] (Type_\i) -- (BobT);
             }
 
-            \node[otherCollector, visible on=<{2-}>] (A) at (9,-3) {A};
-            \foreach \i in {1}
-            {
-                \draw [edge, visible on=<{2-}>] (Type_\i) -- (A) node [midway, above, sloped]
-                (bobHasToA_\i) {$1$};
-            }
-            \foreach \i/\amount in {{2/3}}
-            {
-                \draw [edge, visible on=<{2-}>] (A) -- (Type_\i) node [midway, above, sloped]
-                (aToBobWants_\i) {$\amount$};
-            }
+            \node[otherCollector, visible on=<{4-}>] (A) at (9,-3) {A};
+            % edges to A
+            \foreach \i/\amounts in {1/{{4-6/1/0}, {7/1/0}, {8/0/10}, {9-/0/0}}}
+                \foreach \on/\amount/\bend in \amounts
+                    \draw [edge, visible on=<{\on}>] (Type_\i) to[bend
+                    right=\bend] node[over line] {$\amount$} (A);
 
-            \node[otherCollector, visible on=<{3-}>] (B) at (9,1) {B};
-            \foreach \i in {5}
-            {
-                \draw [edge, visible on=<{3-}>] (Type_\i) -- (B) node [midway, above, sloped]
-                (bobHasToB_\i) {$1$};
-            }
-            \foreach \i/\amount in {{1/2}, {3/1}}
-            {
-                \draw [edge, visible on=<{3-}>] (B) -- (Type_\i) node [midway, above, sloped]
-                (bToBobWants_\i) {$\amount$};
-            }
+            % edges from A
+            \foreach \i/\amounts in {2/{{4-6/3/0}, {7/2/0}, {8/2/10}, {9-/2/0}}}
+                \foreach \on/\amount/\bend in \amounts
+                \draw [edge, visible on=<{\on}>] (A) to[bend right=\bend]
+                node[over line] {$\amount$} (Type_\i);
+
+            % backward edges to A
+            \foreach \i/\amounts in {2/{{8/1/10}}}
+                \foreach \on/\amount/\bend in \amounts
+                    \draw [edge, dashed, visible on=<{\on}>] (Type_\i) to[bend
+                    right=\bend] node[over line] {$\amount$} (A);
+
+            % backward edges from A
+            \foreach \i/\amounts in {1/{{8/1/10}}}
+                \foreach \on/\amount/\bend in \amounts
+                \draw [edge, dashed, visible on=<{\on}>] (A) to[bend right=\bend]
+                node[over line] {$\amount$} (Type_\i);
+
+
+            \node[otherCollector, visible on=<{5-}>] (B) at (9,1) {B};
+            % edges to B
+            \foreach \i/\amounts in {{4/{{5-8/1}, {9-/0}}}, {5/{{5-/1}}}}
+                \foreach \on/\amount in \amounts
+                    \draw [edge, visible on=<{\on}>] (Type_\i) to node[over line] {$\amount$} (B);
+
+            % edges from B
+            \foreach \i/\amounts in {{3/{{5-/1}}}, {2/{{5-/1}}}}
+                \foreach \on/\amount in \amounts
+                \draw [edge, visible on=<{\on}>] (B) to node[over line] {$\amount$} (Type_\i);
 
             \begin{pgfonlayer}{bg}
-            \foreach \source/\dest in {{BobS/Type_5}, {Type_5/B}, {B/Type_3}, {Type_3/Type_3}, {Type_3/BobT}}
-                \draw[-, red!50, line width=5pt, visible on=<4>] (\source) --
-                (\dest);
-            \foreach \source/\dest in {{BobS/Type_5}, {Type_5/B}, {B/Type_1}, {Type_1/A}, {A/Type_2}, {Type_2/Type_2}, {Type_2/BobT}}
-                \draw[-, red!50, line width=5pt, visible on=<5>] (\source) -- (\dest);
+            \foreach \source/\dest in {{BobS/Type_1}, {Type_1/A}, {A/Type_2}, {Type_2/BobT}}
+                \draw[-, red!50, line width=5pt, visible on=<6>] (\source) -- (\dest);
+            \draw[-, green!50, line width=5pt, visible on=<7->] (Type_2) -- (BobT);
 
-            \end{pgfonlayer}
+            \foreach \source/\dest in {{BobS/Type_3}, {Type_3/BobT}}
+                \draw[-, red!50, line width=5pt, visible on=<7>] (\source) -- (\dest);
+            \draw[-, green!50, line width=5pt, visible on=<8->] (Type_3) -- (BobT);
+
+            \foreach \source/\dest/\bend in {{BobS/Type_4/0}, {Type_4/B/0}, {B/Type_2/0}, {Type_2/A/10}, {A/Type_1/10}, {Type_1/BobT/0}}
+                \draw[-, red!50, line width=5pt, visible on=<8>] (\source) to[bend right=\bend] (\dest);
+            \draw[-, green!50, line width=5pt, visible on=<9->] (Type_1) -- (BobT);
+
+            \foreach \source/\dest in {{BobS/Type_4}, {Type_4/BobT}}
+                \draw[-, red!50, line width=5pt, visible on=<9>] (\source) -- (\dest);
+            \draw[-, green!50, line width=5pt, visible on=<10->] (Type_4) -- (BobT);
+
+            \foreach \source/\dest in {{BobS/Type_5}, {Type_5/BobT}}
+                \draw[-, red!50, line width=5pt, visible on=<10>] (\source) -- (\dest);
+            \draw[-, green!50, line width=5pt, visible on=<11->] (Type_5) -- (BobT);
+
+        \end{pgfonlayer}
         \end{tikzpicture}
     \end{figure}
 \end{frame}
@@ -162,23 +208,42 @@
 \section{Variationen von Network Flow}
 \subsection{Multi-source \& Multi-sink}
 \begin{frame}{Multi-source \& Multi-sink}
-    \begin{itemize}
-        \pause\item Situation: Mehrere sources $s_0,\dots,s_i$ und sinks $t_0,\dots,t_j$
-        \pause\item Füge zwei neue Knoten hinzu, eine super source $ss$ und ein super sink $st$
-        \pause\item \(\forall \mathbb{N}_0 \ni x \leq i : \text{Füge } (ss, s_x) \text{ mit
-        Gewicht $\infty$ zu $E$ hinzu}\)
-        \item \(\forall \mathbb{N}_0 \ni y \leq j : \text{Füge } (t_y, st) \text{ mit
-        Gewicht $\infty$ zu $E$ hinzu}\)
-        \pause\item Berechne Max-Flow von $ss$ nach $st$
-    \end{itemize}
+    \begin{tabular}{p{\textwidth}}
+        \begin{itemize}
+            \item<2-> Situation: Mehrere sources $s_0,\dots,s_i$ und sinks $t_0,\dots,t_j$
+            \item<3-> Füge zwei neue Knoten hinzu, eine super source $ss$ und ein super sink $st$
+            \item<4-> \(\forall \mathbb{N}_0 \ni x \leq i : \text{Füge } (ss, s_x) \text{ mit
+            Gewicht $\infty$ zu $E$ hinzu}\)
+            \item<4-> \(\forall \mathbb{N}_0 \ni y \leq j : \text{Füge } (t_y, st) \text{ mit
+            Gewicht $\infty$ zu $E$ hinzu}\)
+            \item<5-> Berechne Max-Flow von $ss$ nach $st$
+        \end{itemize}\\
+        \begin{tikzpicture}[baseline=(current bounding box.north), scale=0.5]
+            \node[source, visible on=<{4-}>] (supersource) at (0,0) {$ss$};
+            \node[source, visible on=<{4-}>] (supersink) at (9,0) {$st$};
+            \foreach \posx/\posy/\name in {{2/2/0}, {2/-2/i}} {
+                \node[source, visible on=<{2-3}>] (s_\name) at (\posx,\posy) {$s_{\name}$};
+                \node[target, visible on=<{2-3}>] (t_\name) at ($(\posx,\posy)+(5,0)$) {$t_{\name}$};
+                \draw[dotted, thick, visible on=<{2-3}>] (s_\name) to (t_\name);
+                \node[vertex, visible on=<{4-}>] (\name_start) at (\posx,\posy) {$s_{\name}$};
+                \node[vertex, visible on=<{4-}>] (\name_end) at ($(\posx,\posy)+(5,0)$) {$t_{\name}$};
+                \draw[dotted, thick, visible on=<{4-}>] (\name_start) to (\name_end);
+                \draw[->, thick, visible on=<{4-}>] (supersource) to node[left] {$\infty$} (\name_start);
+                \draw[->, thick, visible on=<{4-}>] (\name_end) to node[right] {$\infty$} (supersink);
+            }
+            \path (s_0) -- (s_i) node [font=\Huge, midway, sloped, visible on=<{2-}>] {$\dots$};
+            \path (t_0) -- (t_i) node [font=\Huge, midway, sloped, visible on=<{2-}>] {$\dots$};
+        \end{tikzpicture}
+    \end{tabular}
 \end{frame}
 
 \subsection{Knoten Kapazität}
 \begin{frame}{Knoten Kapazität}
     \begin{itemize}
         \pause\item Situation: Knoten $v_0,\dots,v_i$ haben eigene Kapazität
-        \pause\item Ersetze jeden Knoten $v_x$ durch zwei Knoten $v\_in_x$ und $v\_out_x$ und verbinde sie durch eine gerichtete Kante mit der Knotenkapazität als Gewicht
-		\begin{itemize}
+        \pause\item Ersetze jeden Knoten $v_x$ durch zwei Knoten $v\_in_x$ und
+        $v\_out_x$ und verbinde sie durch eine gerichtete Kante mit der Knotenkapazität als Gewicht
+        \begin{itemize}
         \pause\item \(V' \defas \set{v\_in_0, v\_out_0, \dots, v\_in_i, v\_out_i}\)
         \pause\item \(E' \defas E \cup \set{(v\_in_x, v\_out_x) : \mathbb{N}_0 \ni x \leq i}\)
         \pause\item \(\forall \mathbb{N}_0 \ni x \leq i : w((v\_in_x, v\_out_x)) \defas w(v_x)\)
@@ -194,8 +259,6 @@
         Das zu $C$ gehörige \textbf{cut-set} ist
         \[X_C \defas \set{(u, v) \in E \given u \in S, v \in T} = (S\times
         T)\cap E\]
-%        und dass $s$ und $t$ mit der Kantenmenge
-%        \(E' \defas E\setminus X_C\) getrennt wären \pause bzw. der Max %Flow null ist.\\
         \pause
         Die \textbf{Kosten} des Schnittes sind definiert durch
         \(c(S, T) \defas \sum\nolimits_{(u, v) \in X_C} c(u, v)\)
@@ -214,7 +277,7 @@
 \begin{frame}{Berechnung Min Cut}
     \begin{itemize}
         \item Nebenprodukt von Max Flow
-        \pause\item DFS/BFS von $s$ ausführen (nur Knoten mit streng positiver restlicher Kapazität
+        \pause\item DFS/BFS von $s$ ausführen (nur Kanten mit streng positiver restlicher Kapazität
         traversierbar)
         \pause\item Jeder gefundene Knoten ist in $S$
         \pause\item \(T = V\setminus S\)
@@ -254,29 +317,29 @@ soll getrennt werden
             \node[target, visible on=<{1-}>] (Server) at (9,0) {Server};
 
             \foreach \pos/\name/\weight in {{(4.5,2)/2/2}, {(4.5,-2)/1/2}}
-                \node[card, visible on=<{2}>] (\name) at \pos {$\name\mid\weight$};
+                \node[vertex, visible on=<{2}>] (\name) at \pos {$\name\mid\weight$};
             \foreach \source/\dest/\amount in {{Chef/1/3}, {Chef/2/4}, {1/Server/7}, {2/Server/2}}
-                \draw [-, thick, visible on=<{2}>] (\source) -- (\dest) node [midway,
-                above, sloped] (\source\dest) {$\amount$};
+                \draw [->, thick, visible on=<{2}>] (\source) -- (\dest) node [midway,
+                above] (\source\dest) {$\amount$};
 
             \foreach \pos/\name in {{(3,2)/2_{in}}, {(6,2)/2_{out}}, {(3,-2)/1_{in}}, {(6,-2)/1_{out}}}
-                \node[card, visible on=<{3-}>] (\name) at \pos {$\name$};
+                \node[vertex, visible on=<{3-}>] (\name) at \pos {$\name$};
             \foreach \source/\dest/\amount in {{Chef/1_{in}/3}, {Chef/2_{in}/4}, {1_{in}/1_{out}/2}, {2_{in}/2_{out}/2}, {1_{out}/Server/7}, {2_{out}/Server/2}}
-                \draw [-, thick, visible on=<{3-}>] (\source) -- (\dest) node [midway,
-                above, sloped] (\source\dest) {$\amount$};
-            \draw[dashed, thick, visible on=<{4}>] plot [smooth] coordinates {(0,2) (2,0)
+                \draw [->, thick, visible on=<{3-}>] (\source) -- (\dest) node [midway,
+                above] (\source\dest) {$\amount$};
+            \draw[dashed, thick, visible on=<{4}>] plot [smooth] coordinates {(0,2) (2.5,-0.5)
                 (0,-2)};
-            \node[visible on=<{3}>] at (0,3) {$7$};
+            \node[visible on=<{4}>] at (0,3) {$7$};
             \draw[thick, dashed, visible on=<{4}>] plot [smooth] coordinates
-                {(5,3) (4,-3)};
+                {(4,3) (4,-3)};
             \draw[thick, red, dashed, visible on=<{5}>] plot [smooth]
-                coordinates {(5,3) (4,-3)};
-            \node[visible on=<{4-5}>] at (5,4) {$4$};
+                coordinates {(4,3) (4,-3)};
+            \node[visible on=<{4-5}>] at (4,4) {$4$};
             \draw[thick, dashed, visible on=<{4}>] plot [smooth]
-                coordinates {(4,3) (3.5,0.5) (2.5,-0.5) (2, -3)};
-            \node[visible on=<{4}>] at (2,-4) {$5$};
-            \draw[thick, dashed, visible on=<{4}>] plot [smooth] coordinates {(9,2) (7,0) (9,-2)};
-            \node[visible on=<{4}>] at (9,3) {$8$};
+                coordinates {(7.5,3) (6,0.5) (3,-0.5) (1.5, -3)};
+            \node[visible on=<{4}>] at (1.5,-4) {$5$};
+            \draw[thick, dashed, visible on=<{4}>] plot [smooth] coordinates {(9,2) (6.5,-0.5) (9,-2)};
+            \node[visible on=<{4}>] at (9,3) {$9$};
             \draw[thick, red, dashed, visible on=<{5}>] plot [smooth]
                 coordinates {(7,3) (6.5,0.5) (5.5,-0.5) (5,-3)};
             \node[visible on=<{5}>] at (7,4) {$4$};
@@ -291,10 +354,10 @@ soll getrennt werden
             \node[target, visible on=<{1-}>] (Server) at (9,0) {Server};
             \node[visible on=<{1}>] (MF) at (12,0) {$mf = 4 = min cut$};
             \foreach \pos/\name in {{(3,2)/2_{in}}, {(6,2)/2_{out}}, {(3,-2)/1_{in}}, {(6,-2)/1_{out}}}
-                \node[card, visible on=<{1-}>] (\name) at \pos {$\name$};
+                \node[vertex, visible on=<{1-}>] (\name) at \pos {$\name$};
             \foreach \source/\dest/\amount in {{Chef/1_{in}/1}, {Chef/2_{in}/2}, {1_{in}/1_{out}/0}, {2_{in}/2_{out}/0}, {1_{out}/Server/5}, {2_{out}/Server/0}}
-                \draw [-, thick, visible on=<{1-}>] (\source) -- (\dest) node [midway,
-                above, sloped] (\source\dest) {$\amount$};
+                \draw [->, thick, visible on=<{1-}>] (\source) -- (\dest) node [midway,
+                above] (\source\dest) {$\amount$};
 
             \draw[thick, red, dashed, visible on=<{2}>] plot [smooth cycle]
                 coordinates {(3.5,4) (3.5,-4) (-2,0)};
