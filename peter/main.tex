@@ -155,6 +155,8 @@ F"ur \(G\) bipartit: \enquote{Maximum Cardinality Bipartite Matching}, kurz \tex
 \end{figure}
 \end{frame}
 
+%taken out because time is short
+\iffalse
 \begin{frame}{Complete Prime Pairing}
 \setbeamercovered{invisible}
 \begin{block}{Definition}\pause
@@ -162,7 +164,7 @@ Ein \textbf{Complete Prime Pairing} einer Menge \(\varnothing \neq A \subseteq \
 \end{block}
 
 \pause\begin{block}{Problem}
-Gegeben eine Liste \(N\) von nat"urlichen Zahlen und \(a, b \in N \ (a \neq b)\), existiert ein Complete Prime Pairing von N, in dem \(a\) und \(b\) gepaart werden?\\ \pause
+Gegeben eine Liste \(N\) von verschiedenen nat"urlichen Zahlen und \(a, b \in N \ (a \neq b)\), existiert ein Complete Prime Pairing von N, in dem \(a\) und \(b\) gepaart werden?\\ \pause
 \begin{itemize}
 \item Falls \(a+b\notin \mathbb{P}\), gebe \enquote{Nein} aus.\pause\ Ansonsten entferne \(a, b\) aus \(N\).\pause
 \item Setze \(V_1 \defas \set{v\in N \given \text{$v$ gerade}}, V_2 \defas N \setminus V_1\).\pause
@@ -171,6 +173,7 @@ Gegeben eine Liste \(N\) von nat"urlichen Zahlen und \(a, b \in N \ (a \neq b)\)
 \end{itemize}
 \end{block}
 \end{frame}
+\fi
 
 \subsection{MCBM mit Max-Flow}
 
@@ -224,16 +227,85 @@ Ein Pfad \((v_1,...,v_n)\) in \(G\) hei\ss{}t \textbf{Augmenting Path} (in G bzg
 
 \begin{frame}{MCBM mit Augmenting Paths}
 \setbeamercovered{invisible}
+\begin{figure}
+\begin{tikzpicture}[scale=1.3, auto,swap]
+	\foreach \pos/\name in {{(0,2)/a}, {(2,1)/b}, {(0,0.5)/c},
+                            {(0,-1)/d}, {(2,-0.5)/e}}
+        \node[vertex] (\name) at \pos {$\name$};
+    \foreach \source/ \dest in {a/b, c/e, d/b, c/b}
+        \path[edge] (\source) -- (\dest);
+    
+	\path<2->[color=blue, dashed, ->, ultra thick] (a) edge[bend left] node [right] {} (b);
+    
+	\begin{pgfonlayer}{background}
+        \draw [black, rounded corners,thick, dashed] (-0.7,-1.7) rectangle (0.7,2.7);
+        \draw [black, rounded corners,thick, dashed] (1.3,-1.7) rectangle (2.7,2.7);
+        \foreach \source / \dest in {c/e}
+            \path[selected edge] (\source.center) -- (\dest.center);
+    \end{pgfonlayer}
+\end{tikzpicture}
+\end{figure}
+\end{frame}
+
+\begin{frame}{MCBM mit Augmenting Paths}
+\setbeamercovered{invisible}
+\begin{figure}
+\begin{tikzpicture}[scale=1.3, auto,swap]
+	\foreach \pos/\name in {{(0,2)/a}, {(2,1)/b}, {(0,0.5)/c},
+                            {(0,-1)/d}, {(2,-0.5)/e}}
+        \node[vertex] (\name) at \pos {$\name$};
+    \foreach \source/ \dest in {a/b, c/e, d/b, c/b}
+        \path[edge] (\source) -- (\dest);
+    
+	\path<2->[color=blue, dashed, ->, ultra thick] (a) edge[bend left] node [right] {} (b);
+    \path<3->[color=blue, dashed, ->, ultra thick] (b) edge[bend right] node [left] {} (c);
+    \path<4->[color=blue, dashed, ->, ultra thick] (c) edge[bend right] node [right] {} (e);
+    
+	\begin{pgfonlayer}{background}
+        \draw [black, rounded corners,thick, dashed] (-0.7,-1.7) rectangle (0.7,2.7);
+        \draw [black, rounded corners,thick, dashed] (1.3,-1.7) rectangle (2.7,2.7);
+        \foreach \source / \dest in {c/b}
+            \path[selected edge] (\source.center) -- (\dest.center);
+    \end{pgfonlayer}
+\end{tikzpicture}
+\end{figure}
+\end{frame}
+
+\begin{frame}{MCBM mit Augmenting Paths}
+\setbeamercovered{invisible}
 \begin{block}{Lemma von Claude Berge}
 Sei \(G = (V,E)\) bipartit und \(M \subseteq E\) ein Matching. \pause Dann ist M kardinalit"atsmaximal, genau dann wenn kein Augmenting Path in G bzgl. M existiert.
-\end{block}\pause
-\begin{block}{Beweisidee}\pause
-Ist \(M\) ein Matching und \((v_1,...,v_n)\) ein Augmenting Path\pause, so ist
-\[
-M' \defas M \setminus P \cup P \setminus M, \text{ wobei } P \defas \set{\set{v_i, v_{i+1}} \given i \in \set{1,...,n-1}}
-\]
-(flippe die Kanten entlang des Pfades) ein Matching mit \(|M'| = |M| + 1\).
 \end{block}
+\end{frame}
+
+\begin{frame}{MCBM mit Augmenting Paths}
+\setbeamercovered{invisible}
+\begin{itemize}
+\item Beweisidee: \pause \enquote{Flippe} alle Kanten entlang des Augmenting Paths.\pause
+\end{itemize}
+\begin{figure}
+\begin{tikzpicture}[scale=1.0, auto,swap]
+	\foreach \pos/\name in {{(0,2)/a}, {(2,1)/b}, {(0,0.5)/c},
+                            {(0,-1)/d}, {(2,-0.5)/e}}
+        \node[vertex] (\name) at \pos {$\name$};
+    \foreach \source/ \dest in {a/b, c/e, d/b, c/b}
+        \path[edge] (\source) -- (\dest);
+    
+	\path[color=blue, dashed, ->, ultra thick] (a) edge[bend left] node [right] {} (b);
+    \path[color=blue, dashed, ->, ultra thick] (b) edge[bend right] node [left] {} (c);
+    \path[color=blue, dashed, ->, ultra thick] (c) edge[bend right] node [right] {} (e);
+    
+	\begin{pgfonlayer}{background}
+        \draw [black, rounded corners,thick, dashed] (-0.7,-1.7) rectangle (0.7,2.7);
+        \draw [black, rounded corners,thick, dashed] (1.3,-1.7) rectangle (2.7,2.7);
+        \foreach \source / \dest / \fr in {c/b/3, a/b/4, a/b/5, c/e/4, c/e/5}
+            \path<\fr>[selected edge] (\source.center) -- (\dest.center);
+    \end{pgfonlayer}
+\end{tikzpicture}
+\end{figure}
+\pause\pause \begin{itemize}
+\item So entsteht ein neues Matching, das um eine Kante größer ist.
+\end{itemize}
 \end{frame}
 
 \begin{frame}{MCBM mit Augmenting Paths}
@@ -248,31 +320,3 @@ Gegeben: bipartiter Graph \(G = (V, E)\).
 Findet MCBM in Laufzeit \(O(|V|\cdot |E|)\).
 \end{block}
 \end{frame}
-
-\begin{frame}{MCBM mit Augmenting Paths}
-\setbeamercovered{invisible}
-
-\begin{figure}
-\begin{tikzpicture}[scale=1.3, auto,swap]
-	\foreach \pos/\name in {{(0,2)/a}, {(2,1)/b}, {(0,0.5)/c},
-                            {(0,-1)/d}, {(2,-0.5)/e}}
-        \node[vertex] (\name) at \pos {$\name$};
-    \foreach \source/ \dest in {a/b, c/e, d/b, c/b}
-        \path[edge] (\source) -- (\dest);
-    
-	\begin{pgfonlayer}{background}
-        \foreach \source / \dest/ \fr in {c/b/2, a/b/3, c/e/3}
-            \path<\fr>[selected edge] (\source.center) -- (\dest.center);
-    \end{pgfonlayer}
-\end{tikzpicture}
-\end{figure}
-\end{frame}
-
-%\begin{block}{Block 1}
-%\begin{itemize}
-%\item Bullet point 1
-%\pause
-%\item Bullet point 2
-%\item \dots
-%\end{itemize}
-%\end{block}
