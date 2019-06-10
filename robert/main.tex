@@ -7,22 +7,32 @@
   },
 }
   \tikzstyle{vertex}=[circle,fill=black!25,minimum size=20pt,inner sep=0pt]
-  
+  \tikzstyle{source}=[circle,fill=red!25, minimum size = 30pt, inner sep = 0pt]
+  \tikzstyle{target}=[circle,fill=blue!25, minimum size = 30pt, inner sep = 0pt]
   \tikzstyle{edge} = [draw,thick,-]
   \tikzstyle{diredge} = [draw,thick,->]
   \tikzstyle{selected diredge} = [draw,thick,->,red]
 
   \subsection{Motivation}
-  \begin{frame}{Motivation}
+  \begin{frame}{Beispielaufgabe}
+    \setbeamercovered{invisible}
+    \begin{block}{Beispielaufgabe}
+      \begin{itemize}
+        \item Gegeben sei ein Netz mit Städten und Straßen mit einer Kapazität
+        \pause
+        \item Für gewisse Städte A und D sucht man die Anzahl Autos die von A nach D fahren können
+      \end{itemize}
+    \end{block}
+  \end{frame}
+    \begin{frame}{Motivation}
   \setbeamercovered{invisible}
     
-
     \begin{figure}
         \begin{tikzpicture}[scale=2.3, auto,swap]
-        \node[vertex] (A) at (0, 0) {A};
+        \node[source] (A) at (0, 0) {A};
         \node[vertex] (B) at (1, -1) {B};
         \node[vertex] (C) at (1, 1) {C};
-        \node[vertex] (D) at (2, 0) {D};
+        \node[target] (D) at (2, 0) {D};
         
         
     % A - B
@@ -124,7 +134,7 @@
     \begin{itemize}
       \item mf = 0;
       \pause
-      \item Solange ein Pfad p (s $\rightarrow$ ... i $\rightarrow$ j $\rightarrow$ ... $\rightarrow$ t) von source nach t existiert:
+      \item Solange ein steigender Pfad p (s $\rightarrow$ ...  $\rightarrow$ i $\rightarrow$ j $\rightarrow$ ... $\rightarrow$ t) von source nach t existiert:
       \pause
       \begin{itemize}
       \item 1. finde minimale Kante f auf dem Pfad
@@ -143,10 +153,10 @@
   \setbeamercovered{invisible}
   \begin{figure}
     \begin{tikzpicture}[scale=2.3, auto,swap]
-    \node[vertex] (A) at (0, 0) {A};
+    \node[source] (A) at (0, 0) {A};
     \node[vertex] (B) at (1, -1) {B};
     \node[vertex] (C) at (1, 1) {C};
-    \node[vertex] (D) at (2, 0) {D};
+    \node[target] (D) at (2, 0) {D};
     
     % A - B
     \path[diredge]<1> (A) --  (0.4, -0.6);
@@ -265,10 +275,10 @@
   \setbeamercovered{invisible}
   \begin{figure}
     \begin{tikzpicture}[scale=2.3, auto,swap]
-    \node[vertex] (A) at (0, 0) {A};
+    \node[source] (A) at (0, 0) {A};
     \node[vertex] (B) at (1, -1) {B};
     \node[vertex] (C) at (1, 1) {C};
-    \node[vertex] (D) at (2, 0) {D};
+    \node[target] (D) at (2, 0) {D};
     
     % A - B
     \path[diredge]<1> (A) --  (0.4, -0.6);
