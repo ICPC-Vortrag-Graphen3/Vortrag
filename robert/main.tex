@@ -15,14 +15,23 @@
   \tikzstyle{selected edge} = [draw,thick,-,red]
 
 
+
+  % Gerichte Gaphen erzählen
+  % Autos pro Zeit
+  % Rückkanten idee bei definition
+  % def Ford fulkerson
+  % Wert von Fluss -> Laufzeit
+  % --> f*
+  % Math umgebungen
+  % wenn du zeit hast \mathcal {0} (T_SDFS)
   \subsection{Motivation}
   \begin{frame}{Beispielaufgabe}
     \setbeamercovered{invisible}
     \begin{block}{Beispielaufgabe}
       \begin{itemize}
-        \item Gegeben sei ein Netz mit Städten und Straßen mit einer Kapazität
+        \item Gegeben sei ein Netz mit Städten und Straßen mit einer Kapazität (Autos pro Stunde)
         \pause
-        \item Für gewisse Städte A und D sucht man die Anzahl Autos die von A nach D fahren können
+        \item Für gewisse Städte A und D sucht man die Anzahl Autos pro Stunde die von A nach D fahren können
       \end{itemize}
     \end{block}
   \end{frame}
@@ -136,7 +145,7 @@
     \begin{itemize}
       \item mf = 0;
       \pause
-      \item Solange ein steigender Pfad p (s $\rightarrow$ ...  $\rightarrow$ i $\rightarrow$ j $\rightarrow$ ... $\rightarrow$ t) von source nach t existiert:
+      \item Solange ein augmenting path p (s $\rightarrow$ ...  $\rightarrow$ i $\rightarrow$ j $\rightarrow$ ... $\rightarrow$ t) von source nach sink existiert:
       \pause
       \begin{itemize}
       \item 1. finde minimale Kante f auf dem Pfad
@@ -263,11 +272,11 @@
   \setbeamercovered{invisible}
   \begin{block}{Laufzeit Ford Fulkerson}
       \begin{itemize}
-        \item O(ES)
+        \item O($\mid$E$\mid$ $\cdot$ f*)
         \pause
-        \item wobei S die Lösung ist
+        \item wobei f* der maximale Fluss ist
         \pause
-        \item O(S) mal Tiefensuche, was in O(E) läuft, da $E \geq$ V - 1
+        \item f* mal Tiefensuche, was in O($\mid$E$\mid$) läuft, da $\mid$E$\mid$ $\geq$ $\mid$V$\mid$ - 1
       \end{itemize}
       \pause
       $\Rightarrow$ kann sehr groß werden
@@ -432,9 +441,9 @@
     \begin{itemize}
       \item Breitensuche statt Tiefensuche
       \pause
-      \item Laufzeit O(V$E^2$)
+      \item Laufzeit O($\mid$V$\mid \cdot \mid$E$\mid ^ 2 $)
       \pause
-      \item O(VE) mal Breitensuche, was in O(E) läuft
+      \item O($\mid$V$\mid$$\cdot$$\mid$E$\mid$) mal Breitensuche, was in O($\mid$E$\mid$) läuft
     \end{itemize}
   \end{block}
 \end{frame}
