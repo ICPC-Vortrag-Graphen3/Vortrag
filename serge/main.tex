@@ -59,13 +59,13 @@
                 \node[vertex, visible on=<{6-7}>] (AWantsType_\i) at (3, {2*(\i-3)}) {$\i$};
                 \draw [edge, visible on=<{6-7|handout:0}>] (AWantsType_\i) -- (A) node [pos=0.35, above]
                 (asWantToA_\i) {$1$};
-                \draw [edge, visible on=<{8-|handout:0}>] (BobHasType_\i) -- (A) node [pos=0.35, above]
+                \draw [edge, visible on=<{8-}>] (BobHasType_\i) -- (A) node [pos=0.35, above]
                 (bobHasToA_\i) {$1$};
             }
             \foreach \i/\amount in {{2/3}}
             {
-                \node[vertex, visible on=<{7}>] (AHasType_\i) at (10, {2*(\i-3)}) {$\i$};
-                \draw [edge, visible on=<{7}>] (A) -- (AHasType_\i) node [midway, above]
+                \node[vertex, visible on=<{7|handout:0}>] (AHasType_\i) at (10, {2*(\i-3)}) {$\i$};
+                \draw [edge, visible on=<{7|handout:0}>] (A) -- (AHasType_\i) node [midway, above]
                 (asToHas_\i) {$\amount$};
                 \draw [edge, visible on=<{8-}>] (A) -- (BobWantsType_\i) node [midway, above]
                 (asToBobWants_\i) {$\amount$};
