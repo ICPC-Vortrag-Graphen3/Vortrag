@@ -132,18 +132,18 @@
   %\rightarrow
   \begin{block}{Ford Fulkerson}
     \begin{itemize}
-      \item mf = 0;
+      \item $F = 0$
       \pause
-      \item Solange ein steigender Pfad p (s $\rightarrow$ ...  $\rightarrow$ i $\rightarrow$ j $\rightarrow$ ... $\rightarrow$ t) von source nach t existiert:
+      \item Solange ein steigender Pfad p ($s \rightarrow\dots\rightarrow i$ $\rightarrow j\rightarrow\dots\rightarrow t$) von $s$ nach $t$ existiert:
       \pause
       \begin{itemize}
-      \item 1. finde minimale Kante f auf dem Pfad
+      \item 1. finde minimale Kante $f$ auf dem Pfad
       \pause
-      \item 2. Kapazität aller Kanten in Pfadrichtung (z.B. i $\rightarrow$ j) um f reduzieren
+      \item 2. Kapazität aller Kanten in Pfadrichtung (z.B. $i\rightarrow j$) um $f$ reduzieren
       \pause
-      \item 3. Kapazität aller Kanten gegen Pfadrichtung (z.B. j $\rightarrow$ i) um f erhöhen 
+      \item 3. Kapazität aller Kanten gegen Pfadrichtung (z.B. $j\rightarrow i$) um $f$ erhöhen 
       \pause
-      \item mf += f;
+      \item $F \mathrel{+}= f$;
       \end{itemize}
     \end{itemize}
   \end{block}
@@ -261,11 +261,11 @@
   \setbeamercovered{invisible}
   \begin{block}{Laufzeit Ford Fulkerson}
       \begin{itemize}
-        \item O(ES)
+        \item $\mathcal{O}(F\cdot T_{DFS}) = \mathcal{O}(F\cdot E)$
         \pause
-        \item wobei S die Lösung ist
+        \item wobei $F$ der Wert des maximalen Flusses ist
         \pause
-        \item O(S) mal Tiefensuche, was in O(E) läuft, da $E \geq$ V - 1
+        \item $\mathcal{O}(F)$ mal Tiefensuche, was in $\mathcal{O}(E)$ läuft, da $E \geq V - 1$
       \end{itemize}
       \pause
       $\Rightarrow$ kann sehr groß werden
@@ -430,9 +430,9 @@
     \begin{itemize}
       \item Breitensuche statt Tiefensuche
       \pause
-      \item Laufzeit O(V$E^2$)
+      \item Laufzeit $\mathcal{O}(VE^2)$
       \pause
-      \item O(VE) mal Breitensuche, was in O(E) läuft
+      \item $\mathcal{O}(VE)$ mal Breitensuche, was in $\mathcal{O}(E)$ läuft
     \end{itemize}
   \end{block}
 \end{frame}

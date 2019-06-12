@@ -80,8 +80,6 @@
 	\end{itemize}
 \end{frame}
 \begin{frame}{Größe von IS und VC}
-	Es ist trivial beliebige IS oder VC anzugeben. Deswegen suchen wir in der Regel nach möglichst großen IS und möglichst kleinen VC. Das wollen wir formalisieren:
-	\pause
 	\begin{block}{Definition}
 		Ein IS/VC ist \textbf{inklusions maximal/minimal}, wenn kein Knoten hinzugefügt/entfernt werden kann ohne die Eigenschaft des IS/VC zu behalten.\\
 		\pause
@@ -99,19 +97,15 @@
 	\pause
 	Etwas informeller aufgeschrieben erhalten wir damit $|VC| = |MCBM|$.\\
 	Und mit unserem Wissen aus dem vorangegangenen Satz folgt: $|V| = |VC| + |IS| = |MCBM| + |IS|$\\
-	\pause
-	\vspace{0.5cm}
-	Mit diesem Satz und den uns bekannten Verfahren erhalten wir nur die Größen der Mengen nicht aber deren Elemente. Um auch an die Elemente der Mengen ran zu kommen, braucht es noch mehr Verfahren. Die Mengen sind allerdings nicht eindeutig.
 \end{frame}
 
 \begin{frame}{Guardian of Decency}
 	\vspace{-0.3cm}
 	\begin{block}{Aufgabe}
-		Gegeben sind $N\leq 500$ Schüler, beschrieben durch Größe, Geschlecht und Musikgeschmack. Der Lehrer möchte wissen wie viele Schüler maximal auf Klassenfahrt kommen können, ohne dass die Gefahr besteht, dass zwei Schüler ein Paar werden.
+		Gegeben sind $N\leq 500$ Schüler, beschrieben durch Größe, Geschlecht und Musikgeschmack. Der Lehrer möchte wissen wie viele Schüler maximal auf Klassenfahrt kommen können, ohne dass die Gefahr besteht, dass zwei Schüler ein Paar werden.\\\pause
 		Zwei Schüler laufen Gefahr ein Paar zu werden, wenn sie ein unterschiedliches Geschlecht, maximal 40cm Größendifferenz und einen gleichen Musikgeschmack haben.
 	\end{block}
 	\pause
-	\textbf{Lösungsansatz:}
 	\begin{itemize}
 		\setlength\itemsep{0.05em}
 		\item Modelliere das Problem als Graphen mit den Schülern als Knoten
@@ -119,7 +113,7 @@
 		\pause
 		\item Suche nach einem maximalem IS
 		\pause
-		\item nutze dafür aus dass der Graph bipartit ist, indem Männchen und Weibchen voneinander getrennt werden
-		\item Berechne mittels Flow ein MCBM und daraus die Größe von IS
+		\item nutze dafür aus, dass der Graph bipartit ist, indem Männchen und Weibchen voneinander getrennt werden
+		\item Berechne mittels Flow $|IS|=|V|-|VC|=|V|-|MCBM|$
 	\end{itemize}
 \end{frame}
