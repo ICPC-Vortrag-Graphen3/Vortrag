@@ -233,8 +233,36 @@ Gegeben eine Liste \(N\) von verschiedenen nat"urlichen Zahlen und \(a, b \in N 
 	\path<6-8>[color=blue, dashed, ->, ultra thick] (b) edge[bend right] node [left] {} (c);
     
 	\begin{pgfonlayer}{background}
-        \foreach \source/ \dest/ \fri/ \frf in {s/c/3/9, c/b/3/8, b/t/3/9, s/a/9/9, a/b/9/10, c/e/9/10, e/t/9/9}
+        \foreach \source/ \dest/ \fri/ \frf in {s/c/3/9, c/b/3/8, b/t/3/9, s/a/9/9, a/b/9/9, c/e/9/9, e/t/9/9}%s/a/9/9, a/b/9/10, c/e/9/10, e/t/9/9}
             \path<\fri-\frf>[selected edge] (\source.center) -- (\dest.center);
+    \end{pgfonlayer}
+\end{tikzpicture}
+\end{figure}
+\end{frame}
+
+\begin{frame}{MCBM mit Ford-Fulkerson}
+\setbeamercovered{invisible}
+\begin{figure}
+\begin{tikzpicture}[scale=1.3, auto,swap]
+	\foreach \pos/\name in {{(0,2)/a}, {(2,1)/b}, {(0,0.5)/c},
+                            {(0,-1)/d}, {(2,-0.5)/e}}
+        \node[vertex] (\name) at \pos {$\name$};
+	\node<1-1>[vertex, draw=black] (s) at (-2,0.5) {$s$};
+	\node<1-1>[vertex, draw=black] (t) at (4,0.5) {$t$};	
+	
+	\foreach \source/ \dest in {s/a, s/c, s/d, b/t, e/t}
+		\path<1-1>[diredge, dashed] (\source) -- (\dest); 
+		
+    \foreach \source/ \dest in {a/b, c/e, d/b, c/b}
+        \path[diredge] (\source) -- (\dest);
+		
+	\foreach \source/ \dest/ \fr in {s/a/1, a/b/2, c/e/2, e/t/1}
+		 \path<1-\fr>[color=blue, dashed, ->, ultra thick] (\source) edge[bend left] node [right] {} (\dest);
+	\path<1-2>[color=blue, dashed, ->, ultra thick] (b) edge[bend right] node [left] {} (c);
+    
+	\begin{pgfonlayer}{background}
+        \foreach \source/ \dest/ \fr in {s/c/1, c/b/2, b/t/1}
+            \path<1-\fr>[selected edge] (\source.center) -- (\dest.center);
     \end{pgfonlayer}
 \end{tikzpicture}
 \end{figure}
