@@ -175,7 +175,7 @@ Gegeben eine Liste \(N\) von verschiedenen nat"urlichen Zahlen und \(a, b \in N 
 \end{frame}
 \fi
 
-\subsection{MCBM mit Max-Flow}
+\subsection{MCBM Implementierung}
 
 \begin{frame}{MCBM mit Max-Flow}
 \setbeamercovered{invisible}
@@ -202,110 +202,56 @@ Gegeben eine Liste \(N\) von verschiedenen nat"urlichen Zahlen und \(a, b \in N 
             \path<5->[selected edge] (\source.center) -- (\dest.center);
     \end{pgfonlayer}
 \end{tikzpicture}
+\begin{itemize}
+\item<6-> Edmond-Karp: \(\mathcal{O}(|V|\cdot |E|^2)\)
+\item<7-> Ford-Fulkerson: \(\mathcal{O}(f^* \cdot |E|)\) \only<8>{\( = \mathcal{O}(|V| \cdot |E|)\)}
+\end{itemize}
 \end{figure}
 \end{frame}
 
-\subsection{MCBM mit Augmenting Paths}
+\begin{frame}{MCBM mit Ford-Fulkerson}
+\setbeamercovered{invisible}
+\begin{figure}
+\begin{tikzpicture}[scale=1.3, auto,swap]
+	\foreach \pos/\name in {{(0,2)/a}, {(2,1)/b}, {(0,0.5)/c},
+                            {(0,-1)/d}, {(2,-0.5)/e}}
+        \node[vertex] (\name) at \pos {$\name$};
+	\node<1-9>[vertex, draw=black] (s) at (-2,0.5) {$s$};
+	\node<1-9>[vertex, draw=black] (t) at (4,0.5) {$t$};	
+	
+	\foreach \source/ \dest in {s/a, s/c, s/d, b/t, e/t}
+		\path<1-9>[diredge, dashed] (\source) -- (\dest); 
+		
+    \foreach \source/ \dest in {a/b, c/e, d/b, c/b}
+        \path[diredge] (\source) -- (\dest);
+    
+    \foreach \source/ \dest in {s/c, c/b, b/t}
+		\path<2>[color=blue, dashed, ->, ultra thick] (\source) edge[bend left] node [right] {} (\dest);
+		
+	\foreach \source/ \dest/ \fr in {s/a/4, a/b/5, c/e/7, e/t/8}
+		 \path<\fr-8>[color=blue, dashed, ->, ultra thick] (\source) edge[bend left] node [right] {} (\dest);
+	\path<6-8>[color=blue, dashed, ->, ultra thick] (b) edge[bend right] node [left] {} (c);
+    
+	\begin{pgfonlayer}{background}
+        \foreach \source/ \dest/ \fri/ \frf in {s/c/3/9, c/b/3/8, b/t/3/9, s/a/9/9, a/b/9/10, c/e/9/10, e/t/9/9}
+            \path<\fri-\frf>[selected edge] (\source.center) -- (\dest.center);
+    \end{pgfonlayer}
+\end{tikzpicture}
+\end{figure}
+\end{frame}
 
 \begin{frame}{MCBM mit Augmenting Paths}
 \setbeamercovered{invisible}
 \begin{block}{Augmenting Paths}
-Sei \(G = (V,E), \ V = V_1 \dot{\cup} V_2\) bipartit und \(M \subseteq E\) ein Matching.\pause
+Sei \(G = (V,E), \ V = V_1 \dot{\cup} V_2\) bipartit und \(M \subseteq E\) ein Matching.
 
 Ein Pfad \((v_1,...,v_n)\) in \(G\) hei\ss{}t \textbf{Augmenting Path} (in G bzgl. M)\pause, falls
 \begin{itemize}
 \item \(v_1 \in V_1 \setminus \bigcup M\) (freier Knoten links)\pause
-\item \(\forall i \in \set{1,...,n-1}: \set{v_i,v_i+1} \in
-\begin{cases*}
-	E \setminus M, & $i$ ungerade,\\
-	M, & $i$ gerade.
-\end{cases*}\)\pause
-\item \(v_n \in V_2 \setminus \bigcup M\) (freier Knoten rechts)
+\item \(v_n \in V_2 \setminus \bigcup M\) (freier Knoten rechts)\pause
+\item \(\set{v_i, v_{i+1}}\) ist abwechselnd \(\in E\setminus M\) (frei) und \(\in M\) (gematcht)
 \end{itemize}
 \end{block}
-\end{frame}
-
-\begin{frame}{MCBM mit Augmenting Paths}
-\setbeamercovered{invisible}
-\begin{figure}
-\begin{tikzpicture}[scale=1.3, auto,swap]
-	\foreach \pos/\name in {{(0,2)/a}, {(2,1)/b}, {(0,0.5)/c},
-                            {(0,-1)/d}, {(2,-0.5)/e}}
-        \node[vertex] (\name) at \pos {$\name$};
-    \foreach \source/ \dest in {a/b, c/e, d/b, c/b}
-        \path[edge] (\source) -- (\dest);
-    
-	\path<2->[color=blue, dashed, ->, ultra thick] (a) edge[bend left] node [right] {} (b);
-    
-	\begin{pgfonlayer}{background}
-        \draw [black, rounded corners,thick, dashed] (-0.7,-1.7) rectangle (0.7,2.7);
-        \draw [black, rounded corners,thick, dashed] (1.3,-1.7) rectangle (2.7,2.7);
-        \foreach \source / \dest in {c/e}
-            \path[selected edge] (\source.center) -- (\dest.center);
-    \end{pgfonlayer}
-\end{tikzpicture}
-\end{figure}
-\end{frame}
-
-\begin{frame}{MCBM mit Augmenting Paths}
-\setbeamercovered{invisible}
-\begin{figure}
-\begin{tikzpicture}[scale=1.3, auto,swap]
-	\foreach \pos/\name in {{(0,2)/a}, {(2,1)/b}, {(0,0.5)/c},
-                            {(0,-1)/d}, {(2,-0.5)/e}}
-        \node[vertex] (\name) at \pos {$\name$};
-    \foreach \source/ \dest in {a/b, c/e, d/b, c/b}
-        \path[edge] (\source) -- (\dest);
-    
-	\path<2->[color=blue, dashed, ->, ultra thick] (a) edge[bend left] node [right] {} (b);
-    \path<3->[color=blue, dashed, ->, ultra thick] (b) edge[bend right] node [left] {} (c);
-    \path<4->[color=blue, dashed, ->, ultra thick] (c) edge[bend right] node [right] {} (e);
-    
-	\begin{pgfonlayer}{background}
-        \draw [black, rounded corners,thick, dashed] (-0.7,-1.7) rectangle (0.7,2.7);
-        \draw [black, rounded corners,thick, dashed] (1.3,-1.7) rectangle (2.7,2.7);
-        \foreach \source / \dest in {c/b}
-            \path[selected edge] (\source.center) -- (\dest.center);
-    \end{pgfonlayer}
-\end{tikzpicture}
-\end{figure}
-\end{frame}
-
-\begin{frame}{MCBM mit Augmenting Paths}
-\setbeamercovered{invisible}
-\begin{block}{Lemma von Claude Berge}
-Sei \(G = (V,E)\) bipartit und \(M \subseteq E\) ein Matching. \pause Dann ist M kardinalit"atsmaximal, genau dann wenn kein Augmenting Path in G bzgl. M existiert.
-\end{block}
-\end{frame}
-
-\begin{frame}{MCBM mit Augmenting Paths}
-\setbeamercovered{invisible}
-\begin{itemize}
-\item Beweisidee: \pause \enquote{Flippe} alle Kanten entlang des Augmenting Paths.\pause
-\end{itemize}
-\begin{figure}
-\begin{tikzpicture}[scale=1.0, auto,swap]
-	\foreach \pos/\name in {{(0,2)/a}, {(2,1)/b}, {(0,0.5)/c},
-                            {(0,-1)/d}, {(2,-0.5)/e}}
-        \node[vertex] (\name) at \pos {$\name$};
-    \foreach \source/ \dest in {a/b, c/e, d/b, c/b}
-        \path[edge] (\source) -- (\dest);
-    
-	\path[color=blue, dashed, ->, ultra thick] (a) edge[bend left] node [right] {} (b);
-    \path[color=blue, dashed, ->, ultra thick] (b) edge[bend right] node [left] {} (c);
-    \path[color=blue, dashed, ->, ultra thick] (c) edge[bend right] node [right] {} (e);
-    
-	\begin{pgfonlayer}{background}
-        \draw [black, rounded corners,thick, dashed] (-0.7,-1.7) rectangle (0.7,2.7);
-        \draw [black, rounded corners,thick, dashed] (1.3,-1.7) rectangle (2.7,2.7);
-        \foreach \source / \dest / \fr in {c/b/3, a/b/4, a/b/5, c/e/4, c/e/5}
-            \path<\fr>[selected edge] (\source.center) -- (\dest.center);
-    \end{pgfonlayer}
-\end{tikzpicture}
-\end{figure}
-\pause\pause \begin{itemize}
-\item So entsteht ein neues Matching, das um eine Kante größer ist.
-\end{itemize}
 \end{frame}
 
 \begin{frame}{MCBM mit Augmenting Paths}
@@ -317,6 +263,6 @@ Gegeben: bipartiter Graph \(G = (V, E)\).
 \pause\item[(2)] Suche einen Augmenting Path. Gebe \(M\) aus, falls keinen gefunden.
 \pause\item[(3)] Flippe die Kanten entlang des gefundenen Pfades. Gehe zu (2).
 \end{itemize}\pause
-Findet MCBM in Laufzeit \(O(|V|\cdot |E|)\).
+Findet MCBM in Laufzeit \(\mathcal{O}(|V|\cdot |E|)\).
 \end{block}
 \end{frame}
