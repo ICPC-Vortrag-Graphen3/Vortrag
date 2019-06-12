@@ -12,6 +12,8 @@
   \tikzstyle{edge} = [draw,thick,-]
   \tikzstyle{diredge} = [draw,thick,->]
   \tikzstyle{selected diredge} = [draw,thick,->,red]
+  \tikzstyle{selected edge} = [draw,thick,-,red]
+
 
   \subsection{Motivation}
   \begin{frame}{Beispielaufgabe}
@@ -26,94 +28,94 @@
   \end{frame}
     \begin{frame}{Motivation}
   \setbeamercovered{invisible}
-    
+
     \begin{figure}
         \begin{tikzpicture}[scale=2.3, auto,swap]
         \node[source] (A) at (0, 0) {A};
         \node[vertex] (B) at (1, -1) {B};
         \node[vertex] (C) at (1, 1) {C};
         \node[target] (D) at (2, 0) {D};
-        
-        
+
+
     % A - B
-    \path[diredge]<1> (A) --  (0.4, -0.6);
+    \path[edge]<1> (A) --  (0.4, -0.6);
     \path[diredge]<1> (0.4, -0.6) -- node[pos=0, in place] {70} (B);
 
-    \path[diredge]<1-> (B) -- (0.6, -0.4);
+    \path[edge]<1-> (B) -- (0.6, -0.4);
     \path[diredge]<1-> (0.6, -0.4) --node[pos=0, in place] {70} (A);
 
     % A - C
-    \path[diredge]<1-3> (A) -- (0.4, 0.6);
+    \path[edge]<1-3> (A) -- (0.4, 0.6);
     \path[diredge]<1-3> (0.4, 0.6) -- node[pos=0, in place] {30} (C);
 
-    \path[diredge]<1-> (C) -- (0.6, 0.4);
+    \path[edge]<1-> (C) -- (0.6, 0.4);
     \path[diredge]<1-> (0.6, 0.4) -- node[pos=0, in place] {30} (A);
 
     % C - D
-    \path[diredge]<1-3> (C) -- (1.6, 0.6);
+    \path[edge]<1-3> (C) -- (1.6, 0.6);
     \path[diredge]<1-3> (1.6, 0.6) -- node[pos=0, in place] {50} (D);
 
-    \path[diredge]<1-> (D) -- (1.4, 0.4);
+    \path[edge]<1-> (D) -- (1.4, 0.4);
     \path[diredge]<1-> (1.4, 0.4) -- node[pos=0, in place] {50} (C);
 
     % B - D
-    \path[diredge]<1> (B) -- (1.6, -0.6);
+    \path[edge]<1> (B) -- (1.6, -0.6);
     \path[diredge]<1> (1.6, -0.6) -- node[pos=0, in place] {50} (D);
-    
-    \path[diredge]<1-> (D) -- (1.4, -0.4);
+
+    \path[edge]<1-> (D) -- (1.4, -0.4);
     \path[diredge]<1-> (1.4, -0.4) -- node[pos=0, in place] {50} (B);
-    
+
     % B - C
-    \path[diredge]<1-4> (B) -- (0.7,0);
+    \path[edge]<1-4> (B) -- (0.7,0);
     \path[diredge]<1-4> (0.7, 0) -- node[pos=0, in place] {15} (C);
     \path[diredge]<1-> (1.3,0) -- (B) ;
-    \path[diredge]<1-> (C) -- node[pos=1, in place] {15} (1.3,0);
-  
+    \path[edge]<1-> (C) -- node[pos=1, in place] {15} (1.3,0);
 
-    \path[selected diredge]<2> (A) --  (0.4, -0.6);
+
+    \path[selected edge]<2> (A) --  (0.4, -0.6);
     \path[selected diredge]<2> (0.4, -0.6) -- node[pos=0, in place] {70} (B);
 
-    \path[selected diredge]<2> (B) -- (1.6, -0.6);
+    \path[selected edge]<2> (B) -- (1.6, -0.6);
     \path[selected diredge]<2> (1.6, -0.6) -- node[pos=0, in place] {50} (D);
 
-    \path[diredge]<3-4> (A) --  (0.4, -0.6);
+    \path[edge]<3-4> (A) --  (0.4, -0.6);
     \path[diredge]<3-4> (0.4, -0.6) -- node[pos=0, in place] {20} (B);
 
-    \path[diredge]<3-6> (B) -- (1.6, -0.6);
+    \path[edge]<3-6> (B) -- (1.6, -0.6);
     \path[diredge]<3-6> (1.6, -0.6) -- node[pos=0, in place] {0} (D);
-    
-    \path[selected diredge]<4> (A) -- (0.4, 0.6);
+
+    \path[selected edge]<4> (A) -- (0.4, 0.6);
     \path[selected diredge]<4> (0.4, 0.6) -- node[pos=0, in place] {30} (C);
 
-    \path[selected diredge]<4> (C) -- (1.6, 0.6);
+    \path[selected edge]<4> (C) -- (1.6, 0.6);
     \path[selected diredge]<4> (1.6, 0.6) -- node[pos=0, in place] {50} (D);
 
     % A - B
-    \path[selected diredge]<5> (A) --  (0.4, -0.6);
+    \path[selected edge]<5> (A) --  (0.4, -0.6);
     \path[selected diredge]<5> (0.4, -0.6) -- node[pos=0, in place] {20} (B);
 
     % A - C
-    \path[diredge]<5-6> (A) -- (0.4, 0.6);
+    \path[edge]<5-6> (A) -- (0.4, 0.6);
     \path[diredge]<5-6> (0.4, 0.6) -- node[pos=0, in place] {0} (C);
 
     % C - D
-    \path[selected diredge]<5> (C) -- (1.6, 0.6);
+    \path[selected edge]<5> (C) -- (1.6, 0.6);
     \path[selected diredge]<5> (1.6, 0.6) -- node[pos=0, in place] {20} (D);
 
     % B - C
-    \path[selected diredge]<5> (B) -- (0.7,0);
+    \path[selected edge]<5> (B) -- (0.7,0);
     \path[selected diredge]<5> (0.7, 0) -- node[pos=0, in place] {15} (C);
 
-    \path[diredge]<6> (B) -- (0.7,0);
+    \path[edge]<6> (B) -- (0.7,0);
     \path[diredge]<6> (0.7, 0) -- node[pos=0, in place] {0} (C);
-    
-    \path[diredge]<6> (A) --  (0.4, -0.6);
+
+    \path[edge]<6> (A) --  (0.4, -0.6);
     \path[diredge]<6> (0.4, -0.6) -- node[pos=0, in place] {5} (B);
 
-    \path[diredge]<6> (C) -- (1.6, 0.6);
+    \path[edge]<6> (C) -- (1.6, 0.6);
     \path[diredge]<6> (1.6, 0.6) -- node[pos=0, in place] {15} (D);
-          
-           
+
+
     \end{tikzpicture}
   \end{figure}
   \begin{center}
@@ -122,7 +124,7 @@
     \pause  + 15 = 95
   \end{center}
 
-  
+
 \end{frame}
 
 \subsection{Ford Fulkerson}
@@ -141,7 +143,7 @@
       \pause
       \item 2. Kapazität aller Kanten in Pfadrichtung (z.B. i $\rightarrow$ j) um f reduzieren
       \pause
-      \item 3. Kapazität aller Kanten gegen Pfadrichtung (z.B. j $\rightarrow$ i) um f erhöhen 
+      \item 3. Kapazität aller Kanten gegen Pfadrichtung (z.B. j $\rightarrow$ i) um f erhöhen
       \pause
       \item mf += f;
       \end{itemize}
@@ -157,102 +159,102 @@
     \node[vertex] (B) at (1, -1) {B};
     \node[vertex] (C) at (1, 1) {C};
     \node[target] (D) at (2, 0) {D};
-    
+
     % A - B
-    \path[diredge]<1> (A) --  (0.4, -0.6);
+    \path[edge]<1> (A) --  (0.4, -0.6);
     \path[diredge]<1> (0.4, -0.6) -- node[pos=0, in place] {50} (B);
 
-    \path[diredge]<1,2,6> (B) -- (0.6, -0.4);
+    \path[edge]<1,2,6> (B) -- (0.6, -0.4);
     \path[diredge]<1,2,6> (0.6, -0.4) --node[pos=0, in place] {0} (A);
 
     % A - C
-    \path[diredge]<1-4> (A) -- (0.4, 0.6);
+    \path[edge]<1-4> (A) -- (0.4, 0.6);
     \path[diredge]<1-4> (0.4, 0.6) -- node[pos=0, in place] {50} (C);
 
-    \path[diredge]<1-> (C) -- (0.6, 0.4);
+    \path[edge]<1-> (C) -- (0.6, 0.4);
     \path[diredge]<1-> (0.6, 0.4) -- node[pos=0, in place] {0} (A);
 
     % C - D
-    \path[diredge]<1> (C) -- (1.6, 0.6);
+    \path[edge]<1> (C) -- (1.6, 0.6);
     \path[diredge]<1> (1.6, 0.6) -- node[pos=0, in place] {50} (D);
 
-    \path[diredge]<1,2,6> (D) -- (1.4, 0.4);
+    \path[edge]<1,2,6> (D) -- (1.4, 0.4);
     \path[diredge]<1,2,6> (1.4, 0.4) -- node[pos=0, in place] {0} (C);
 
     % B - D
-    \path[diredge]<1-4> (B) -- (1.6, -0.6);
+    \path[edge]<1-4> (B) -- (1.6, -0.6);
     \path[diredge]<1-4> (1.6, -0.6) -- node[pos=0, in place] {50} (D);
-    
-    \path[diredge]<1-> (D) -- (1.4, -0.4);
+
+    \path[edge]<1-> (D) -- (1.4, -0.4);
     \path[diredge]<1-> (1.4, -0.4) -- node[pos=0, in place] {0} (B);
-    
+
     % B - C
-    \path[diredge]<1> (B) -- (0.7,0);
+    \path[edge]<1> (B) -- (0.7,0);
     \path[diredge]<1> (0.7, 0) -- node[pos=0, in place] {50} (C);
     \path[diredge]<1,2,6> (1.3,0) -- (B) ;
-    \path[diredge]<1,2,6> (C) -- node[pos=1, in place] {0} (1.3,0);
-  
+    \path[edge]<1,2,6> (C) -- node[pos=1, in place] {0} (1.3,0);
 
-    \path[selected diredge]<2> (A) --  (0.4, -0.6);
+
+    \path[selected edge]<2> (A) --  (0.4, -0.6);
     \path[selected diredge]<2> (0.4, -0.6) -- node[pos=0, in place] {50} (B);
 
-    \path[selected diredge]<2> (B) -- (0.7,0);
+    \path[selected edge]<2> (B) -- (0.7,0);
     \path[selected diredge]<2> (0.7, 0) -- node[pos=0, in place] {50} (C);
-    
-    \path[selected diredge]<2> (C) -- (1.6, 0.6);
+
+    \path[selected edge]<2> (C) -- (1.6, 0.6);
     \path[selected diredge]<2> (1.6, 0.6) -- node[pos=0, in place] {50} (D);
-  
-    \path[diredge]<3-5> (B) -- (0.6, -0.4);
+
+    \path[edge]<3-5> (B) -- (0.6, -0.4);
     \path[diredge]<3-5> (0.6, -0.4) --node[pos=0, in place] {50} (A);
 
     \path[diredge]<3> (1.3,0) -- (B) ;
-    \path[diredge]<3> (C) -- node[pos=1, in place] {50} (1.3,0);
-  
-    \path[diredge]<3-5> (D) -- (1.4, 0.4);
+    \path[edge]<3> (C) -- node[pos=1, in place] {50} (1.3,0);
+
+    \path[edge]<3-5> (D) -- (1.4, 0.4);
     \path[diredge]<3-5> (1.4, 0.4) -- node[pos=0, in place] {50} (C);
 
 
-    \path[diredge]<3-5> (A) --  (0.4, -0.6);
+    \path[edge]<3-5> (A) --  (0.4, -0.6);
     \path[diredge]<3-5> (0.4, -0.6) -- node[pos=0, in place] {0} (B);
-    
-    \path[diredge]<3-5> (C) -- (1.6, 0.6);
+
+    \path[edge]<3-5> (C) -- (1.6, 0.6);
     \path[diredge]<3-5> (1.6, 0.6) -- node[pos=0, in place] {0} (D);
 
-    \path[diredge]<3> (B) -- (0.7,0);
+    \path[edge]<3> (B) -- (0.7,0);
     \path[diredge]<3> (0.7, 0) -- node[pos=0, in place] {0} (C);
-      
-    \path[diredge]<4-5> (B) -- (0.7,0);
+
+    \path[edge]<4-5> (B) -- (0.7,0);
     \path[diredge]<4-5> (0.7, 0) -- node[pos=0, in place] {0} (C);
 
     \path[diredge]<4> (1.3,0) -- (B) ;
-    \path[diredge]<4> (C) -- node[pos=1, in place] {50} (1.3,0);
+    \path[edge]<4> (C) -- node[pos=1, in place] {50} (1.3,0);
 
     \path[selected diredge]<5> (1.3,0) -- (B) ;
-    \path[selected diredge]<5> (C) -- node[pos=1, in place] {50} (1.3,0);
-    
-    \path[selected diredge]<5> (A) -- (0.4, 0.6);
+    \path[selected edge]<5> (C) -- node[pos=1, in place] {50} (1.3,0);
+
+    \path[selected edge]<5> (A) -- (0.4, 0.6);
     \path[selected diredge]<5> (0.4, 0.6) -- node[pos=0, in place] {50} (C);
 
-    \path[selected diredge]<5-6> (B) -- (1.6, -0.6);
+    \path[selected edge]<5-6> (B) -- (1.6, -0.6);
     \path[selected diredge]<5-6> (1.6, -0.6) -- node[pos=0, in place] {50} (D);
-    
-    \path[diredge]<6> (B) -- (0.7,0);
-    \path[diredge]<6> (0.7, 0) -- node[pos=0, in place] {50} (C);
-    
-    \path[diredge]<6> (1.3,0) -- (B) ;
-    \path[diredge]<6> (C) -- node[pos=1, in place] {0} (1.3,0);
-  
 
-    \path[selected diredge]<6> (A) --  (0.4, -0.6);
+    \path[edge]<6> (B) -- (0.7,0);
+    \path[diredge]<6> (0.7, 0) -- node[pos=0, in place] {50} (C);
+
+    \path[diredge]<6> (1.3,0) -- (B) ;
+    \path[edge]<6> (C) -- node[pos=1, in place] {0} (1.3,0);
+
+
+    \path[selected edge]<6> (A) --  (0.4, -0.6);
     \path[selected diredge]<6> (0.4, -0.6) -- node[pos=0, in place] {50} (B);
 
-    \path[draw, thick, ->, blue]<6> (C) -- (1.6, 0.6);
+    \path[draw, thick, -, blue]<6> (C) -- (1.6, 0.6);
     \path[draw, thick, ->, blue]<6> (1.6, 0.6) -- node[pos=0, in place] {50} (D);
 
-    \path[draw, thick, ->, blue]<6> (A) -- (0.4, 0.6);
+    \path[draw, thick, -, blue]<6> (A) -- (0.4, 0.6);
     \path[draw, thick, ->, blue]<6> (0.4, 0.6) -- node[pos=0, in place] {50} (C);
 
-    
+
     \end{tikzpicture}
   \end{figure}
 \end{frame}
@@ -279,148 +281,148 @@
     \node[vertex] (B) at (1, -1) {B};
     \node[vertex] (C) at (1, 1) {C};
     \node[target] (D) at (2, 0) {D};
-    
+
     % A - B
-    \path[diredge]<1> (A) --  (0.4, -0.6);
+    \path[edge]<1> (A) --  (0.4, -0.6);
     \path[diredge]<1> (0.4, -0.6) -- node[pos=0, in place] {50} (B);
 
-    \path[diredge]<1-2> (B) -- (0.6, -0.4);
+    \path[edge]<1-2> (B) -- (0.6, -0.4);
     \path[diredge]<1-2> (0.6, -0.4) --node[pos=0, in place] {0} (A);
 
     % A - C
-    \path[diredge]<1-2> (A) -- (0.4, 0.6);
+    \path[edge]<1-2> (A) -- (0.4, 0.6);
     \path[diredge]<1-2> (0.4, 0.6) -- node[pos=0, in place] {50} (C);
 
-    \path[diredge]<1-3> (C) -- (0.6, 0.4);
+    \path[edge]<1-3> (C) -- (0.6, 0.4);
     \path[diredge]<1-3> (0.6, 0.4) -- node[pos=0, in place] {0} (A);
 
     % C - D
-    \path[diredge]<1> (C) -- (1.6, 0.6);
+    \path[edge]<1> (C) -- (1.6, 0.6);
     \path[diredge]<1> (1.6, 0.6) -- node[pos=0, in place] {50} (D);
 
-    \path[diredge]<1-2> (D) -- (1.4, 0.4);
+    \path[edge]<1-2> (D) -- (1.4, 0.4);
     \path[diredge]<1-2> (1.4, 0.4) -- node[pos=0, in place] {0} (C);
 
     % B - D
-    \path[diredge]<1-2> (B) -- (1.6, -0.6);
+    \path[edge]<1-2> (B) -- (1.6, -0.6);
     \path[diredge]<1-2> (1.6, -0.6) -- node[pos=0, in place] {50} (D);
-    
-    \path[diredge]<1-3> (D) -- (1.4, -0.4);
+
+    \path[edge]<1-3> (D) -- (1.4, -0.4);
     \path[diredge]<1-3> (1.4, -0.4) -- node[pos=0, in place] {0} (B);
-    
+
     % B - C
-    \path[diredge]<1> (B) -- (0.7,0);
+    \path[edge]<1> (B) -- (0.7,0);
     \path[diredge]<1> (0.7, 0) -- node[pos=0, in place] {1} (C);
     \path[diredge]<1-2> (1.3,0) -- (B) ;
-    \path[diredge]<1-2> (C) -- node[pos=1, in place] {0} (1.3,0);
+    \path[edge]<1-2> (C) -- node[pos=1, in place] {0} (1.3,0);
 
-    \path[selected diredge]<2> (B) -- (0.7,0);
+    \path[selected edge]<2> (B) -- (0.7,0);
     \path[selected diredge]<2> (0.7, 0) -- node[pos=0, in place] {1} (C);
 
-    \path[selected diredge]<2> (C) -- (1.6, 0.6);
+    \path[selected edge]<2> (C) -- (1.6, 0.6);
     \path[selected diredge]<2> (1.6, 0.6) -- node[pos=0, in place] {50} (D);
 
-    \path[selected diredge]<2> (A) --  (0.4, -0.6);
+    \path[selected edge]<2> (A) --  (0.4, -0.6);
     \path[selected diredge]<2> (0.4, -0.6) -- node[pos=0, in place] {50} (B);
     % Page 3
     % A - B
-    \path[diredge]<3> (A) --  (0.4, -0.6);
+    \path[edge]<3> (A) --  (0.4, -0.6);
     \path[diredge]<3> (0.4, -0.6) -- node[pos=0, in place] {49} (B);
 
-    \path[diredge]<3-4> (B) -- (0.6, -0.4);
+    \path[edge]<3-4> (B) -- (0.6, -0.4);
     \path[diredge]<3-4> (0.6, -0.4) --node[pos=0, in place] {1} (A);
 
     % A - C
-    \path[selected diredge]<3> (A) -- (0.4, 0.6);
+    \path[selected edge]<3> (A) -- (0.4, 0.6);
     \path[selected diredge]<3> (0.4, 0.6) -- node[pos=0, in place] {50} (C);
 
     % C - D
-    \path[diredge]<3> (C) -- (1.6, 0.6);
+    \path[edge]<3> (C) -- (1.6, 0.6);
     \path[diredge]<3> (1.6, 0.6) -- node[pos=0, in place] {49} (D);
 
-    \path[diredge]<3-4> (D) -- (1.4, 0.4);
+    \path[edge]<3-4> (D) -- (1.4, 0.4);
     \path[diredge]<3-4> (1.4, 0.4) -- node[pos=0, in place] {1} (C);
 
     % B - D
-    \path[selected diredge]<3> (B) -- (1.6, -0.6);
+    \path[selected edge]<3> (B) -- (1.6, -0.6);
     \path[selected diredge]<3> (1.6, -0.6) -- node[pos=0, in place] {50} (D);
-    
+
     % B - C
-    \path[diredge]<3> (B) -- (0.7,0);
+    \path[edge]<3> (B) -- (0.7,0);
     \path[diredge]<3> (0.7, 0) -- node[pos=0, in place] {0} (C);
     \path[selected diredge]<3> (1.3,0) -- (B) ;
-    \path[selected diredge]<3> (C) -- node[pos=1, in place] {1} (1.3,0);
+    \path[selected edge]<3> (C) -- node[pos=1, in place] {1} (1.3,0);
 
     % Page 4
-    \path[selected diredge]<4> (B) -- (0.7,0);
+    \path[selected edge]<4> (B) -- (0.7,0);
     \path[selected diredge]<4> (0.7, 0) -- node[pos=0, in place] {1} (C);
 
-    \path[selected diredge]<4> (C) -- (1.6, 0.6);
+    \path[selected edge]<4> (C) -- (1.6, 0.6);
     \path[selected diredge]<4> (1.6, 0.6) -- node[pos=0, in place] {49} (D);
 
-    \path[selected diredge]<4> (A) --  (0.4, -0.6);
+    \path[selected edge]<4> (A) --  (0.4, -0.6);
     \path[selected diredge]<4> (0.4, -0.6) -- node[pos=0, in place] {49} (B);
 
     \path[diredge]<4> (1.3,0) -- (B) ;
-    \path[diredge]<4> (C) -- node[pos=1, in place] {0} (1.3,0);
+    \path[edge]<4> (C) -- node[pos=1, in place] {0} (1.3,0);
 
-    \path[diredge]<4> (B) -- (1.6, -0.6);
+    \path[edge]<4> (B) -- (1.6, -0.6);
     \path[diredge]<4> (1.6, -0.6) -- node[pos=0, in place] {49} (D);
-    
-    \path[diredge]<4> (D) -- (1.4, -0.4);
+
+    \path[edge]<4> (D) -- (1.4, -0.4);
     \path[diredge]<4> (1.4, -0.4) -- node[pos=0, in place] {1} (B);
-    
-    \path[diredge]<4> (D) -- (1.4, 0.4);
+
+    \path[edge]<4> (D) -- (1.4, 0.4);
     \path[diredge]<4> (1.4, 0.4) -- node[pos=0, in place] {1} (C);
 
-    \path[diredge]<4> (A) -- (0.4, 0.6);
+    \path[edge]<4> (A) -- (0.4, 0.6);
     \path[diredge]<4> (0.4, 0.6) -- node[pos=0, in place] {49} (C);
 
-    \path[diredge]<4> (C) -- (0.6, 0.4);
+    \path[edge]<4> (C) -- (0.6, 0.4);
     \path[diredge]<4> (0.6, 0.4) -- node[pos=0, in place] {1} (A);
 
-    \path[diredge]<4> (B) -- (0.6, -0.4);
+    \path[edge]<4> (B) -- (0.6, -0.4);
     \path[diredge]<4> (0.6, -0.4) --node[pos=0, in place] {1} (A);
 
     % Page 5
 
     % A - B
-    \path[diredge]<5> (A) --  (0.4, -0.6);
+    \path[edge]<5> (A) --  (0.4, -0.6);
     \path[diredge]<5> (0.4, -0.6) -- node[pos=0, in place] {0} (B);
 
-    \path[diredge]<5> (B) -- (0.6, -0.4);
+    \path[edge]<5> (B) -- (0.6, -0.4);
     \path[diredge]<5> (0.6, -0.4) --node[pos=0, in place] {50} (A);
 
     % A - C
-    \path[diredge]<5> (A) -- (0.4, 0.6);
+    \path[edge]<5> (A) -- (0.4, 0.6);
     \path[diredge]<5> (0.4, 0.6) -- node[pos=0, in place] {0} (C);
 
-    \path[diredge]<5> (C) -- (0.6, 0.4);
+    \path[edge]<5> (C) -- (0.6, 0.4);
     \path[diredge]<5> (0.6, 0.4) -- node[pos=0, in place] {50} (A);
 
     % C - D
-    \path[diredge]<5> (C) -- (1.6, 0.6);
+    \path[edge]<5> (C) -- (1.6, 0.6);
     \path[diredge]<5> (1.6, 0.6) -- node[pos=0, in place] {0} (D);
 
-    \path[diredge]<5> (D) -- (1.4, 0.4);
+    \path[edge]<5> (D) -- (1.4, 0.4);
     \path[diredge]<5> (1.4, 0.4) -- node[pos=0, in place] {50} (C);
 
     % B - D
-    \path[diredge]<5> (B) -- (1.6, -0.6);
+    \path[edge]<5> (B) -- (1.6, -0.6);
     \path[diredge]<5> (1.6, -0.6) -- node[pos=0, in place] {0} (D);
-    
-    \path[diredge]<5> (D) -- (1.4, -0.4);
+
+    \path[edge]<5> (D) -- (1.4, -0.4);
     \path[diredge]<5> (1.4, -0.4) -- node[pos=0, in place] {50} (B);
-    
+
     % B - C
-    \path[diredge]<5> (B) -- (0.7,0);
+    \path[edge]<5> (B) -- (0.7,0);
     \path[diredge]<5> (0.7, 0) -- node[pos=0, in place] {1} (C);
     \path[diredge]<5> (1.3,0) -- (B) ;
-    \path[diredge]<5> (C) -- node[pos=1, in place] {0} (1.3,0);
+    \path[edge]<5> (C) -- node[pos=1, in place] {0} (1.3,0);
 
     \end{tikzpicture}
   \end{figure}
-  
+
 
 \end{frame}
 \subsection{Edmond Karp}
