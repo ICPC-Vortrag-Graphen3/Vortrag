@@ -17,9 +17,9 @@
   }
 
 
-\section{UVa 10779 - Collector's Problem}
-\subsection{Aufgabenstellung}
-    \begin{frame}{UVa 10779 - Collector's Problem}
+\section{Modellierung und Variationen}
+    \subsection{Collector's Problem (UVa 10779)}
+    \begin{frame}{Collector's Problem (UVa 10779)}
         \begin{block}{UVa 10779 - Collector's Problem}
             \begin{itemize}
                 \item Unterschiedliche Karten zum Sammeln
@@ -57,15 +57,15 @@
             \foreach \i in {1,4}
             {
                 \node[vertex, visible on=<{6-7}>] (AWantsType_\i) at (3, {2*(\i-3)}) {$\i$};
-                \draw [edge, visible on=<{6-7}>] (AWantsType_\i) -- (A) node [pos=0.35, above]
+                \draw [edge, visible on=<{6-7|handout:0}>] (AWantsType_\i) -- (A) node [pos=0.35, above]
                 (asWantToA_\i) {$1$};
                 \draw [edge, visible on=<{8-}>] (BobHasType_\i) -- (A) node [pos=0.35, above]
                 (bobHasToA_\i) {$1$};
             }
             \foreach \i/\amount in {{2/3}}
             {
-                \node[vertex, visible on=<{7}>] (AHasType_\i) at (10, {2*(\i-3)}) {$\i$};
-                \draw [edge, visible on=<{7}>] (A) -- (AHasType_\i) node [midway, above]
+                \node[vertex, visible on=<{7|handout:0}>] (AHasType_\i) at (10, {2*(\i-3)}) {$\i$};
+                \draw [edge, visible on=<{7|handout:0}>] (A) -- (AHasType_\i) node [midway, above]
                 (asToHas_\i) {$\amount$};
                 \draw [edge, visible on=<{8-}>] (A) -- (BobWantsType_\i) node [midway, above]
                 (asToBobWants_\i) {$\amount$};
@@ -120,20 +120,20 @@
     \begin{figure}
         \begin{tikzpicture}[scale=0.7]
             \node[source, visible on=<{3-}>] (BobS) at (0,-3) {BobS};
-            \node[source, visible on=<{1-2}>] (BobStemp) at (0, 0) {BobS};
+            \node[source, visible on=<{1-2|handout:0}>] (BobStemp) at (0, 0) {BobS};
             \node[target, visible on=<{3-}>] (BobT) at (0,3) {BobT};
-            \node[target, visible on=<{1-2}>] (BobTtemp) at (12,0) {BobT};
-            \foreach \i/\amounts/\a in {{1/{{3-6/1}, {7-/0}}/1}, {2/{{3-/0}}/0}, {3/{{3-7/1}, {8-/0}}/1}, {4/{{3-8/2}, {9/1}, {10-/0}}/2}, {5/{{3-10/3}, {11-/2}}/3}}
+            \node[target, visible on=<{1-2|handout:0}>] (BobTtemp) at (12,0) {BobT};
+            \foreach \i/\amounts/\a in {{1/{{3-6/1}, {7-|handout:0/0}}/1}, {2/{{3-/0}}/0}, {3/{{3-7/1}, {8-|handout:0/0}}/1}, {4/{{3-8/2}, {9|handout:0/1}, {10-|handout:0/0}}/2}, {5/{{3-10/3}, {11-|handout:0/2}}/3}}
             {
                 \node[vertex, visible on=<{1-}>] (Type_\i) at (5, {2*(\i-3)}) {$\i_{h}$};
-                \draw [edge, visible on=<{1-2}>] (BobStemp) -- (Type_\i) node [pos=0.7, above]
+                \draw [edge, visible on=<{1-2|handout:0}>] (BobStemp) -- (Type_\i) node [pos=0.7, above]
                 (amount_\i) {$\a$};
-                \node[vertex, visible on=<{1}>] (BobWantsType_\i) at (8, {2*(\i-3)}) {$\i_{w}$};
-                \draw [edge, visible on=<{1}>] (Type_\i) -- (BobWantsType_\i) node [midway, above]
+                \node[vertex, visible on=<{1|handout:0}>] (BobWantsType_\i) at (8, {2*(\i-3)}) {$\i_{w}$};
+                \draw [edge, visible on=<{1|handout:0}>] (Type_\i) -- (BobWantsType_\i) node [midway, above]
                 (hasToWant_\i) {$1$};
-                \draw[edge, visible on=<{1}>] (BobWantsType_\i) -- (BobTtemp) node [midway, above]
+                \draw[edge, visible on=<{1|handout:0}>] (BobWantsType_\i) -- (BobTtemp) node [midway, above]
                 (wantToBob_\i) {$1$};
-                \draw [edge, visible on=<{2}>] (Type_\i) -- (BobTtemp) node [midway, above]
+                \draw [edge, visible on=<{2|handout:0}>] (Type_\i) -- (BobTtemp) node [midway, above]
                 (hasToWant_\i) {$1$};
                 \foreach \on/\amount in \amounts {
                     \draw [edge, visible on=<{\on}>] (BobS) -- (Type_\i) node
@@ -144,25 +144,25 @@
 
             \node[otherCollector, visible on=<{4-}>] (A) at (9,-3) {A};
             % edges to A
-            \foreach \i/\amounts in {1/{{4-6/1/0}, {7/1/0}, {8/0/10}, {9-/0/0}}}
+            \foreach \i/\amounts in {1/{{4-6/1/0}, {7/1/0}, {8|handout:0/0/10}, {9-/0/0}}}
                 \foreach \on/\amount/\bend in \amounts
                     \draw [edge, visible on=<{\on}>] (Type_\i) to[bend
                     right=\bend] node[over line] {$\amount$} (A);
 
             % edges from A
-            \foreach \i/\amounts in {2/{{4-6/3/0}, {7/2/0}, {8/2/10}, {9-/2/0}}}
+            \foreach \i/\amounts in {2/{{4-6/3/0}, {7/2/0}, {8|handout:0/2/10}, {9-/2/0}}}
                 \foreach \on/\amount/\bend in \amounts
                 \draw [edge, visible on=<{\on}>] (A) to[bend right=\bend]
                 node[over line] {$\amount$} (Type_\i);
 
             % backward edges to A
-            \foreach \i/\amounts in {2/{{8/1/10}}}
+            \foreach \i/\amounts in {2/{{8|handout:0/1/10}}}
                 \foreach \on/\amount/\bend in \amounts
                     \draw [edge, dashed, visible on=<{\on}>] (Type_\i) to[bend
                     right=\bend] node[over line] {$\amount$} (A);
 
             % backward edges from A
-            \foreach \i/\amounts in {1/{{8/1/10}}}
+            \foreach \i/\amounts in {1/{{8|handout:0/1/10}}}
                 \foreach \on/\amount/\bend in \amounts
                 \draw [edge, dashed, visible on=<{\on}>] (A) to[bend right=\bend]
                 node[over line] {$\amount$} (Type_\i);
@@ -181,79 +181,99 @@
 
             \begin{pgfonlayer}{bg}
             \foreach \source/\dest in {{BobS/Type_1}, {Type_1/A}, {A/Type_2}, {Type_2/BobT}}
-                \draw[-, red!50, line width=5pt, visible on=<6>] (\source) -- (\dest);
-            \draw[-, green!50, line width=5pt, visible on=<7->] (Type_2) -- (BobT);
+                \draw[-, red!50, line width=5pt, visible on=<6|handout:0>] (\source) -- (\dest);
+            \draw[-, green!50, line width=5pt, visible on=<7-|handout:0>] (Type_2) -- (BobT);
 
             \foreach \source/\dest in {{BobS/Type_3}, {Type_3/BobT}}
-                \draw[-, red!50, line width=5pt, visible on=<7>] (\source) -- (\dest);
-            \draw[-, green!50, line width=5pt, visible on=<8->] (Type_3) -- (BobT);
+                \draw[-, red!50, line width=5pt, visible on=<7|handout:0>] (\source) -- (\dest);
+            \draw[-, green!50, line width=5pt, visible on=<8-|handout:0>] (Type_3) -- (BobT);
 
             \foreach \source/\dest/\bend in {{BobS/Type_4/0}, {Type_4/B/0}, {B/Type_2/0}, {Type_2/A/10}, {A/Type_1/10}, {Type_1/BobT/0}}
-                \draw[-, red!50, line width=5pt, visible on=<8>] (\source) to[bend right=\bend] (\dest);
-            \draw[-, green!50, line width=5pt, visible on=<9->] (Type_1) -- (BobT);
+                \draw[-, red!50, line width=5pt, visible on=<8|handout:0>] (\source) to[bend right=\bend] (\dest);
+            \draw[-, green!50, line width=5pt, visible on=<9-|handout:0>] (Type_1) -- (BobT);
 
             \foreach \source/\dest in {{BobS/Type_4}, {Type_4/BobT}}
-                \draw[-, red!50, line width=5pt, visible on=<9>] (\source) -- (\dest);
-            \draw[-, green!50, line width=5pt, visible on=<10->] (Type_4) -- (BobT);
+                \draw[-, red!50, line width=5pt, visible on=<9|handout:0>] (\source) -- (\dest);
+            \draw[-, green!50, line width=5pt, visible on=<10-|handout:0>] (Type_4) -- (BobT);
 
             \foreach \source/\dest in {{BobS/Type_5}, {Type_5/BobT}}
-                \draw[-, red!50, line width=5pt, visible on=<10>] (\source) -- (\dest);
-            \draw[-, green!50, line width=5pt, visible on=<11->] (Type_5) -- (BobT);
+                \draw[-, red!50, line width=5pt, visible on=<10|handout:0>] (\source) -- (\dest);
+            \draw[-, green!50, line width=5pt, visible on=<11-|handout:0>] (Type_5) -- (BobT);
 
         \end{pgfonlayer}
         \end{tikzpicture}
     \end{figure}
 \end{frame}
 
-\section{Variationen von Network Flow}
 \subsection{Multi-source \& Multi-sink}
 \begin{frame}{Multi-source \& Multi-sink}
-    \begin{tabular}{p{\textwidth}}
-        \begin{itemize}
-            \item<2-> Situation: Mehrere sources $s_0,\dots,s_i$ und sinks $t_0,\dots,t_j$
-            \item<3-> Füge zwei neue Knoten hinzu, eine super source $ss$ und ein super sink $st$
-            \item<4-> \(\forall \mathbb{N}_0 \ni x \leq i : \text{Füge } (ss, s_x) \text{ mit
-            Gewicht $\infty$ zu $E$ hinzu}\)
-            \item<4-> \(\forall \mathbb{N}_0 \ni y \leq j : \text{Füge } (t_y, st) \text{ mit
-            Gewicht $\infty$ zu $E$ hinzu}\)
-            \item<5-> Berechne Max-Flow von $ss$ nach $st$
-        \end{itemize}\\
-        \begin{tikzpicture}[baseline=(current bounding box.north), scale=0.5]
-            \node[source, visible on=<{4-}>] (supersource) at (0,0) {$ss$};
-            \node[source, visible on=<{4-}>] (supersink) at (9,0) {$st$};
-            \foreach \posx/\posy/\name in {{2/2/0}, {2/-2/i}} {
-                \node[source, visible on=<{2-3}>] (s_\name) at (\posx,\posy) {$s_{\name}$};
-                \node[target, visible on=<{2-3}>] (t_\name) at ($(\posx,\posy)+(5,0)$) {$t_{\name}$};
-                \draw[dotted, thick, visible on=<{2-3}>] (s_\name) to (t_\name);
-                \node[vertex, visible on=<{4-}>] (\name_start) at (\posx,\posy) {$s_{\name}$};
-                \node[vertex, visible on=<{4-}>] (\name_end) at ($(\posx,\posy)+(5,0)$) {$t_{\name}$};
-                \draw[dotted, thick, visible on=<{4-}>] (\name_start) to (\name_end);
-                \draw[->, thick, visible on=<{4-}>] (supersource) to node[left] {$\infty$} (\name_start);
-                \draw[->, thick, visible on=<{4-}>] (\name_end) to node[right] {$\infty$} (supersink);
-            }
-            \path (s_0) -- (s_i) node [font=\Huge, midway, sloped, visible on=<{2-}>] {$\dots$};
-            \path (t_0) -- (t_i) node [font=\Huge, midway, sloped, visible on=<{2-}>] {$\dots$};
-        \end{tikzpicture}
-    \end{tabular}
+    \begin{figure}
+    \begin{tikzpicture}
+        \node[source, visible on=<{3-}>] (supersource) at (0,0) {$ss$};
+        \node[target, visible on=<{3-}>] (supersink) at (9,0) {$st$};
+        \foreach \posx/\posy/\name in {{2/2/0}, {2/-2/i}} {
+            \node[source, visible on=<{2}>] (s_\name) at (\posx,\posy) {$s_{\name}$};
+            \node[target, visible on=<{2}>] (t_\name) at ($(\posx,\posy)+(5,0)$) {$t_{\name}$};
+            \draw[dotted, thick, visible on=<{2-3}>] (s_\name) to (t_\name);
+            \node[vertex, visible on=<{3-}>] (\name_start) at (\posx,\posy) {$s_{\name}$};
+            \node[vertex, visible on=<{3-}>] (\name_end) at ($(\posx,\posy)+(5,0)$) {$t_{\name}$};
+            \draw[dotted, thick, visible on=<{4-}>] (\name_start) to (\name_end);
+            \draw[->, thick, visible on=<{4-}>] (supersource) to node[left] {$\infty$} (\name_start);
+            \draw[->, thick, visible on=<{4-}>] (\name_end) to node[right] {$\infty$} (supersink);
+        }
+        \path (s_0) -- (s_i) node [font=\Huge, midway, sloped, visible on=<{2-}>] {$\dots$};
+        \path (t_0) -- (t_i) node [font=\Huge, midway, sloped, visible on=<{2-}>] {$\dots$};
+    \end{tikzpicture}
+\end{figure}
 \end{frame}
 
 \subsection{Knoten Kapazität}
 \begin{frame}{Knoten Kapazität}
-    \begin{itemize}
-        \pause\item Situation: Knoten $v_0,\dots,v_i$ haben eigene Kapazität
-        \pause\item Ersetze jeden Knoten $v_x$ durch zwei Knoten $v\_in_x$ und
-        $v\_out_x$ und verbinde sie durch eine gerichtete Kante mit der Knotenkapazität als Gewicht
-        \begin{itemize}
-        \pause\item \(V' \defas \set{v\_in_0, v\_out_0, \dots, v\_in_i, v\_out_i}\)
-        \pause\item \(E' \defas E \cup \set{(v\_in_x, v\_out_x) : \mathbb{N}_0 \ni x \leq i}\)
-        \pause\item \(\forall \mathbb{N}_0 \ni x \leq i : w((v\_in_x, v\_out_x)) \defas w(v_x)\)
-        \end{itemize}
-        \pause\item Doppelte Anzahl an Knoten!
-    \end{itemize}
+    \begin{figure}
+    \begin{tikzpicture}
+        \path (0,0) -- (2,0) node [font=\Huge, midway, sloped, visible on=<{1-}>] {$\dots$};
+        \path (0,-2) -- (2,-2) node [font=\Huge, midway, sloped, visible on=<{1-}>] {$\dots$};
+        \path (6,0) -- (8,0) node [font=\Huge, midway, sloped, visible on=<{1-}>] {$\dots$};
+        \path (6,-2) -- (8,-2) node [font=\Huge, midway, sloped, visible on=<{1-}>] {$\dots$};
+        \path (4,-3) -- (4,-5) node [font=\Huge, midway, sloped, visible on=<{1-}>] {$\dots$};
+        \node[vertex, visible on=<{1|handout:0}>] (oldUp) at (4,0) {a};
+        \node[visible on=<{1|handout:0}>, above=0 of oldUp] {$5$};
+        \node[vertex, visible on=<{1|handout:0}>] (oldDown) at (4,-2) {b};
+        \node[visible on=<{1|handout:0}>, above=0 of oldDown] {$3$};
+        \draw [->, thick, visible on=<{1|handout:0}>] (2,0) -- (oldUp) node [midway, above] {$w_{1}$};
+        \draw [->, thick, visible on=<{1|handout:0}>] (2,-2) -- (oldDown) node [midway, above] {$w_{2}$};
+        \draw [->, thick, visible on=<{1|handout:0}>] (oldUp) -- (6,0) node [midway, above] {$w_{3}$};
+        \draw [->, thick, visible on=<{1|handout:0}>] (oldDown) -- (6,-2) node [midway, above] {$w_{4}$};
+
+        \node[vertex, visible on=<{2}>] (newUpIn) at (3,0) {$a_{in}$};
+        \node[vertex, visible on=<{2}>] (newUpOut) at (5,0) {$a_{out}$};
+        \node[vertex, visible on=<{2}>] (newDownIn) at (3,-2) {$b_{in}$};
+        \node[vertex, visible on=<{2}>] (newDownOut) at (5,-2) {$b_{out}$};
+
+        \draw [->, thick, visible on=<{2-}>] (newUpIn) -- (newUpOut) node [midway, above] {$5$};
+        \draw [->, thick, visible on=<{2-}>] (newDownIn) -- (newDownOut) node [midway, above] {$3$};
+
+        \draw [->, thick, visible on=<{2-}>] (2,0) -- (newUpIn) node [midway, above] {$w_{1}$};
+        \draw [->, thick, visible on=<{2-}>] (2,-2) -- (newDownIn) node [midway, above] {$w_{2}$};
+        \draw [->, thick, visible on=<{2-}>] (newUpOut) -- (6,0) node [midway, above] {$w_{3}$};
+        \draw [->, thick, visible on=<{2-}>] (newDownOut) -- (6,-2) node [midway, above] {$w_{4}$};
+    \end{tikzpicture}
+    \end{figure}
+    % \begin{itemize}
+    %     \pause\item Situation: Knoten $v_0,\dots,v_i$ haben eigene Kapazität
+    %     \pause\item Ersetze jeden Knoten $v_x$ durch zwei Knoten $v\_in_x$ und
+    %     $v\_out_x$ und verbinde sie durch eine gerichtete Kante mit der Knotenkapazität als Gewicht
+    %     \begin{itemize}
+    %     \pause\item \(V' \defas \set{v\_in_0, v\_out_0, \dots, v\_in_i, v\_out_i}\)
+    %     \pause\item \(E' \defas E \cup \set{(v\_in_x, v\_out_x) : \mathbb{N}_0 \ni x \leq i}\)
+    %     \pause\item \(\forall \mathbb{N}_0 \ni x \leq i : w((v\_in_x, v\_out_x)) \defas w(v_x)\)
+    %     \end{itemize}
+    %     \pause\item Doppelte Anzahl an Knoten!
+    % \end{itemize}
 \end{frame}
 
 \subsection{Min Cut}
-\begin{frame}{Schnitt}
+\begin{frame}{(Minimaler) Schnitt}
     \begin{block}{Definition}
         \pause Ist \(V = S \dot{\cup} T\) eine Partition von \(V\) mit \(s \in S, \ t \in T\), so heißt \(C := (S, T)\) ein \textbf{$s$-$t$ cut} (oder \textbf{$s$-$t$ Schnitt}).\\\pause
         Das zu $C$ gehörige \textbf{cut-set} ist
@@ -261,18 +281,19 @@
         T)\cap E\]
         \pause
         Die \textbf{Kosten} des Schnittes sind definiert durch
-        \(c(S, T) \defas \sum\nolimits_{(u, v) \in X_C} c(u, v)\)
+        \(c(S, T) \defas \sum\nolimits_{(u, v) \in X_C} c(u, v)\)\\
+        \pause Ein \textbf{Min Cut} ist ein $s$-$t$ cut \(C = (S, T)\) mit minimalen Kosten.
     \end{block}
 \end{frame}
 
-\begin{frame}{Min Cut}
-    \begin{block}{Definition}
-        \pause Ein \textbf{Min Cut} ist ein $s$-$t$ cut \(C = (S, T)\) mit minimalen Kosten.\\\pause
-        Für einen solchen gilt insbesondere:
-        \[\forall e \in X_C, X_C' \defas X_C \setminus e :
-        \text{ Es existiert ein Weg von $s$ nach $t$ in } (V, E \setminus X_C')\]
-    \end{block}
-\end{frame}
+% \begin{frame}{Min Cut}
+%     \begin{block}{Definition}
+%         \pause Ein \textbf{Min Cut} ist ein $s$-$t$ cut \(C = (S, T)\) mit minimalen Kosten.\\\pause
+%         Für einen solchen gilt insbesondere:
+%         \[\forall e \in X_C, X_C' \defas X_C \setminus e :
+%         \text{ Es existiert ein Weg von $s$ nach $t$ in } (V, E \setminus X_C')\]
+%     \end{block}
+% \end{frame}
 
 \begin{frame}{Berechnung Min Cut}
     \begin{itemize}
@@ -283,6 +304,7 @@
         \pause\item \(T = V\setminus S\)
         \pause\item Alle Kanten in $X_C$ haben Restkapazität $0$ \(\implies\) Min
         Cut $=$ Max Flow
+        \pause\item Max-Flow-Min-Cut Theorem
     \end{itemize}
 \end{frame}
 
@@ -310,21 +332,23 @@ soll getrennt werden
     \end{block}
 \end{frame}
 
-\begin{frame}{Aufgabe zu Min Cut \& Vertex Capacities}
+\begin{frame}<handout:0>{Aufgabe zu Min Cut \& Vertex Capacities}
     \begin{figure}
         \begin{tikzpicture}[scale=0.7]
             \node[source, visible on=<{1-}>] (Chef) at (0,0) {Chef};
             \node[target, visible on=<{1-}>] (Server) at (9,0) {Server};
 
-            \foreach \pos/\name/\weight in {{(4.5,2)/2/2}, {(4.5,-2)/1/2}}
-                \node[vertex, visible on=<{2}>] (\name) at \pos {$\name\mid\weight$};
-            \foreach \source/\dest/\amount in {{Chef/1/3}, {Chef/2/4}, {1/Server/7}, {2/Server/2}}
+            \foreach \pos/\name/\weight in {{(4.5,2)/a/2}, {(4.5,-2)/b/2}} {
+                \node[vertex, visible on=<{2}>] (\name) at \pos {$\name$};
+                \node[visible on=<{2}>, above=0 of \name] {$\weight$};
+            }
+            \foreach \source/\dest/\amount in {{Chef/b/3}, {Chef/a/4}, {b/Server/7}, {a/Server/2}}
                 \draw [->, thick, visible on=<{2}>] (\source) -- (\dest) node [midway,
                 above] (\source\dest) {$\amount$};
 
-            \foreach \pos/\name in {{(3,2)/2_{in}}, {(6,2)/2_{out}}, {(3,-2)/1_{in}}, {(6,-2)/1_{out}}}
+            \foreach \pos/\name in {{(3,2)/a_{in}}, {(6,2)/a_{out}}, {(3,-2)/b_{in}}, {(6,-2)/b_{out}}}
                 \node[vertex, visible on=<{3-}>] (\name) at \pos {$\name$};
-            \foreach \source/\dest/\amount in {{Chef/1_{in}/3}, {Chef/2_{in}/4}, {1_{in}/1_{out}/2}, {2_{in}/2_{out}/2}, {1_{out}/Server/7}, {2_{out}/Server/2}}
+            \foreach \source/\dest/\amount in {{Chef/b_{in}/3}, {Chef/a_{in}/4}, {b_{in}/b_{out}/2}, {a_{in}/a_{out}/2}, {b_{out}/Server/7}, {a_{out}/Server/2}}
                 \draw [->, thick, visible on=<{3-}>] (\source) -- (\dest) node [midway,
                 above] (\source\dest) {$\amount$};
             \draw[dashed, thick, visible on=<{4}>] plot [smooth] coordinates {(0,2) (2.5,-0.5)
@@ -353,9 +377,9 @@ soll getrennt werden
             \node[source, visible on=<{1-}>] (Chef) at (0,0) {Chef};
             \node[target, visible on=<{1-}>] (Server) at (9,0) {Server};
             \node[visible on=<{1}>] (MF) at (12,0) {$mf = 4 = min cut$};
-            \foreach \pos/\name in {{(3,2)/2_{in}}, {(6,2)/2_{out}}, {(3,-2)/1_{in}}, {(6,-2)/1_{out}}}
+            \foreach \pos/\name in {{(3,2)/a_{in}}, {(6,2)/a_{out}}, {(3,-2)/b_{in}}, {(6,-2)/b_{out}}}
                 \node[vertex, visible on=<{1-}>] (\name) at \pos {$\name$};
-            \foreach \source/\dest/\amount in {{Chef/1_{in}/1}, {Chef/2_{in}/2}, {1_{in}/1_{out}/0}, {2_{in}/2_{out}/0}, {1_{out}/Server/5}, {2_{out}/Server/0}}
+            \foreach \source/\dest/\amount in {{Chef/b_{in}/1}, {Chef/a_{in}/2}, {b_{in}/b_{out}/0}, {a_{in}/a_{out}/0}, {b_{out}/Server/5}, {a_{out}/Server/0}}
                 \draw [->, thick, visible on=<{1-}>] (\source) -- (\dest) node [midway,
                 above] (\source\dest) {$\amount$};
 
@@ -364,7 +388,7 @@ soll getrennt werden
             \draw[thick, blue, dashed, visible on=<{2}>] plot [smooth cycle]
                 coordinates {(5.5,4) (5.5,-4) (11,0)};
             \begin{pgfonlayer}{bg}
-            \foreach \source/\dest/\amount in {{1_{in}/1_{out}/0}, {2_{in}/2_{out}/0}}
+            \foreach \source/\dest/\amount in {{b_{in}/b_{out}/0}, {a_{in}/a_{out}/0}}
                 \draw [-, red!50, line width=5pt, visible on=<{3-}>] (\source) -- (\dest);
             \end{pgfonlayer}
         \end{tikzpicture}

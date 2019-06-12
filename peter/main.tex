@@ -155,6 +155,8 @@ F"ur \(G\) bipartit: \enquote{Maximum Cardinality Bipartite Matching}, kurz \tex
 \end{figure}
 \end{frame}
 
+%taken out because time is short
+\iffalse
 \begin{frame}{Complete Prime Pairing}
 \setbeamercovered{invisible}
 \begin{block}{Definition}\pause
@@ -162,7 +164,7 @@ Ein \textbf{Complete Prime Pairing} einer Menge \(\varnothing \neq A \subseteq \
 \end{block}
 
 \pause\begin{block}{Problem}
-Gegeben eine Liste \(N\) von nat"urlichen Zahlen und \(a, b \in N \ (a \neq b)\), existiert ein Complete Prime Pairing von N, in dem \(a\) und \(b\) gepaart werden?\\ \pause
+Gegeben eine Liste \(N\) von verschiedenen nat"urlichen Zahlen und \(a, b \in N \ (a \neq b)\), existiert ein Complete Prime Pairing von N, in dem \(a\) und \(b\) gepaart werden?\\ \pause
 \begin{itemize}
 \item Falls \(a+b\notin \mathbb{P}\), gebe \enquote{Nein} aus.\pause\ Ansonsten entferne \(a, b\) aus \(N\).\pause
 \item Setze \(V_1 \defas \set{v\in N \given \text{$v$ gerade}}, V_2 \defas N \setminus V_1\).\pause
@@ -171,8 +173,9 @@ Gegeben eine Liste \(N\) von nat"urlichen Zahlen und \(a, b \in N \ (a \neq b)\)
 \end{itemize}
 \end{block}
 \end{frame}
+\fi
 
-\subsection{MCBM mit Max-Flow}
+\subsection{MCBM Implementierung}
 
 \begin{frame}{MCBM mit Max-Flow}
 \setbeamercovered{invisible}
@@ -199,40 +202,83 @@ Gegeben eine Liste \(N\) von nat"urlichen Zahlen und \(a, b \in N \ (a \neq b)\)
             \path<5->[selected edge] (\source.center) -- (\dest.center);
     \end{pgfonlayer}
 \end{tikzpicture}
+\begin{itemize}
+\item<6-> Edmond-Karp: \(\mathcal{O}(|V|\cdot |E|^2)\)
+\item<7-> Ford-Fulkerson: \(\mathcal{O}(f^* \cdot |E|)\) \only<8>{\( = \mathcal{O}(|V| \cdot |E|)\)}
+\end{itemize}
 \end{figure}
 \end{frame}
 
-\subsection{MCBM mit Augmenting Paths}
+\begin{frame}{MCBM mit Ford-Fulkerson}
+\setbeamercovered{invisible}
+\begin{figure}
+\begin{tikzpicture}[scale=1.3, auto,swap]
+	\foreach \pos/\name in {{(0,2)/a}, {(2,1)/b}, {(0,0.5)/c},
+                            {(0,-1)/d}, {(2,-0.5)/e}}
+        \node[vertex] (\name) at \pos {$\name$};
+	\node<1-9>[vertex, draw=black] (s) at (-2,0.5) {$s$};
+	\node<1-9>[vertex, draw=black] (t) at (4,0.5) {$t$};	
+	
+	\foreach \source/ \dest in {s/a, s/c, s/d, b/t, e/t}
+		\path<1-9>[diredge, dashed] (\source) -- (\dest); 
+		
+    \foreach \source/ \dest in {a/b, c/e, d/b, c/b}
+        \path[diredge] (\source) -- (\dest);
+    
+    \foreach \source/ \dest in {s/c, c/b, b/t}
+		\path<2>[color=blue, dashed, ->, ultra thick] (\source) edge[bend left] node [right] {} (\dest);
+		
+	\foreach \source/ \dest/ \fr in {s/a/4, a/b/5, c/e/7, e/t/8}
+		 \path<\fr-8>[color=blue, dashed, ->, ultra thick] (\source) edge[bend left] node [right] {} (\dest);
+	\path<6-8>[color=blue, dashed, ->, ultra thick] (b) edge[bend right] node [left] {} (c);
+    
+	\begin{pgfonlayer}{background}
+        \foreach \source/ \dest/ \fri/ \frf in {s/c/3/9, c/b/3/8, b/t/3/9, s/a/9/9, a/b/9/9, c/e/9/9, e/t/9/9}%s/a/9/9, a/b/9/10, c/e/9/10, e/t/9/9}
+            \path<\fri-\frf>[selected edge] (\source.center) -- (\dest.center);
+    \end{pgfonlayer}
+\end{tikzpicture}
+\end{figure}
+\end{frame}
+
+\begin{frame}{MCBM mit Ford-Fulkerson}
+\setbeamercovered{invisible}
+\begin{figure}
+\begin{tikzpicture}[scale=1.3, auto,swap]
+	\foreach \pos/\name in {{(0,2)/a}, {(2,1)/b}, {(0,0.5)/c},
+                            {(0,-1)/d}, {(2,-0.5)/e}}
+        \node[vertex] (\name) at \pos {$\name$};
+	\node<1-1>[vertex, draw=black] (s) at (-2,0.5) {$s$};
+	\node<1-1>[vertex, draw=black] (t) at (4,0.5) {$t$};	
+	
+	\foreach \source/ \dest in {s/a, s/c, s/d, b/t, e/t}
+		\path<1-1>[diredge, dashed] (\source) -- (\dest); 
+		
+    \foreach \source/ \dest in {a/b, c/e, d/b, c/b}
+        \path[diredge] (\source) -- (\dest);
+		
+	\foreach \source/ \dest/ \fr in {s/a/1, a/b/2, c/e/2, e/t/1}
+		 \path<1-\fr>[color=blue, dashed, ->, ultra thick] (\source) edge[bend left] node [right] {} (\dest);
+	\path<1-2>[color=blue, dashed, ->, ultra thick] (b) edge[bend right] node [left] {} (c);
+    
+	\begin{pgfonlayer}{background}
+        \foreach \source/ \dest/ \fr in {s/c/1, c/b/2, b/t/1}
+            \path<1-\fr>[selected edge] (\source.center) -- (\dest.center);
+    \end{pgfonlayer}
+\end{tikzpicture}
+\end{figure}
+\end{frame}
 
 \begin{frame}{MCBM mit Augmenting Paths}
 \setbeamercovered{invisible}
 \begin{block}{Augmenting Paths}
-Sei \(G = (V,E), \ V = V_1 \dot{\cup} V_2\) bipartit und \(M \subseteq E\) ein Matching.\pause
+Sei \(G = (V,E), \ V = V_1 \dot{\cup} V_2\) bipartit und \(M \subseteq E\) ein Matching.
 
 Ein Pfad \((v_1,...,v_n)\) in \(G\) hei\ss{}t \textbf{Augmenting Path} (in G bzgl. M)\pause, falls
 \begin{itemize}
 \item \(v_1 \in V_1 \setminus \bigcup M\) (freier Knoten links)\pause
-\item \(\forall i \in \set{1,...,n-1}: \set{v_i,v_i+1} \in
-\begin{cases*}
-	E \setminus M, & $i$ ungerade,\\
-	M, & $i$ gerade.
-\end{cases*}\)\pause
-\item \(v_n \in V_2 \setminus \bigcup M\) (freier Knoten rechts)
+\item \(v_n \in V_2 \setminus \bigcup M\) (freier Knoten rechts)\pause
+\item \(\set{v_i, v_{i+1}}\) ist abwechselnd \(\in E\setminus M\) (frei) und \(\in M\) (gematcht)
 \end{itemize}
-\end{block}
-\end{frame}
-
-\begin{frame}{MCBM mit Augmenting Paths}
-\setbeamercovered{invisible}
-\begin{block}{Lemma von Claude Berge}
-Sei \(G = (V,E)\) bipartit und \(M \subseteq E\) ein Matching. \pause Dann ist M kardinalit"atsmaximal, genau dann wenn kein Augmenting Path in G bzgl. M existiert.
-\end{block}\pause
-\begin{block}{Beweisidee}\pause
-Ist \(M\) ein Matching und \((v_1,...,v_n)\) ein Augmenting Path\pause, so ist
-\[
-M' \defas M \setminus P \cup P \setminus M, \text{ wobei } P \defas \set{\set{v_i, v_{i+1}} \given i \in \set{1,...,n-1}}
-\]
-(flippe die Kanten entlang des Pfades) ein Matching mit \(|M'| = |M| + 1\).
 \end{block}
 \end{frame}
 
@@ -245,34 +291,6 @@ Gegeben: bipartiter Graph \(G = (V, E)\).
 \pause\item[(2)] Suche einen Augmenting Path. Gebe \(M\) aus, falls keinen gefunden.
 \pause\item[(3)] Flippe die Kanten entlang des gefundenen Pfades. Gehe zu (2).
 \end{itemize}\pause
-Findet MCBM in Laufzeit \(O(|V|\cdot |E|)\).
+Findet MCBM in Laufzeit \(\mathcal{O}(|V|\cdot |E|)\).
 \end{block}
 \end{frame}
-
-\begin{frame}{MCBM mit Augmenting Paths}
-\setbeamercovered{invisible}
-
-\begin{figure}
-\begin{tikzpicture}[scale=1.3, auto,swap]
-	\foreach \pos/\name in {{(0,2)/a}, {(2,1)/b}, {(0,0.5)/c},
-                            {(0,-1)/d}, {(2,-0.5)/e}}
-        \node[vertex] (\name) at \pos {$\name$};
-    \foreach \source/ \dest in {a/b, c/e, d/b, c/b}
-        \path[edge] (\source) -- (\dest);
-    
-	\begin{pgfonlayer}{background}
-        \foreach \source / \dest/ \fr in {c/b/2, a/b/3, c/e/3}
-            \path<\fr>[selected edge] (\source.center) -- (\dest.center);
-    \end{pgfonlayer}
-\end{tikzpicture}
-\end{figure}
-\end{frame}
-
-%\begin{block}{Block 1}
-%\begin{itemize}
-%\item Bullet point 1
-%\pause
-%\item Bullet point 2
-%\item \dots
-%\end{itemize}
-%\end{block}
