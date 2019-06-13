@@ -1,0 +1,148 @@
+% Declare layers
+\pgfdeclarelayer{background}
+\pgfsetlayers{background,main}
+
+\tikzset{
+    in place/.style={
+      auto=false,
+      fill=white,
+      inner sep=2pt,
+    },
+  }
+
+\tikzstyle{vertex}=[circle,fill=black!25,minimum size=20pt,inner sep=0pt]
+\tikzstyle{selected edge} = [draw,line width=5pt,-,red!50]
+\tikzstyle{red vertex} = [vertex, fill=red!30, draw=red]
+\tikzstyle{blue vertex} = [vertex, fill=blue!30, draw=blue]
+\tikzstyle{edge} = [draw,thick,-]
+\tikzstyle{diredge} = [draw,thick,->]
+
+\section{Bipartite Graphen}
+\begin{frame}{Bipartite Graphen}
+
+\setbeamercovered{invisible}
+
+\begin{figure}
+\begin{tikzpicture}[scale=1.3, auto,swap]
+	\foreach \pos/\name in {{(0,2)/a}, {(2,1)/b}, {(0,0.5)/c},
+                            {(0,-1)/d}, {(2,-0.5)/e}}
+        \node[vertex] (\name) at \pos {$\name$};
+    \foreach \source/ \dest in {a/b, c/e, d/b, c/b}
+        \path[edge] (\source) -- (\dest);
+    
+	\begin{pgfonlayer}{background}
+        \draw [red, rounded corners,thick, dashed] (-0.7,-1.7) rectangle (0.7,2.7);
+        \draw [blue, rounded corners,thick, dashed] (1.3,-1.7) rectangle (2.7,2.7);
+    \end{pgfonlayer}    
+    
+    \foreach \vertex in {a, c, d}
+        \path node[red vertex] at (\vertex) {$\vertex$};
+    \foreach \vertex in {b,e}
+        \path node[blue vertex] at (\vertex) {$\vertex$};
+
+	
+\end{tikzpicture}
+\end{figure}
+\end{frame}
+
+\subsection{Matchings}
+\begin{frame}{Matchings}
+\setbeamercovered{invisible}
+\begin{block}{Definition}
+Sei \(G = (V, E), \ E \subseteq \set{\set{u, v} \given u, v \in V}\) ein ungerichteter Graph.\\  Eine Menge von Kanten \(M \subseteq E\) hei\ss{}t \textbf{Matching}, falls
+\[
+\forall e_1,e_2 \in M: e_1 \neq e_2 \Rightarrow e_1 \cap e_2 = \varnothing.
+\]
+\(M \in \mathcal{M} \defas \set{M \subseteq E \given \text{\(M\) ist Matching}}\) hei\ss{}t \textbf{inklusionsmaximal}, falls
+\[
+\forall M' \in \mathcal{M}: M \subseteq M' \Rightarrow M = M'.
+\]
+\(M \in \mathcal{M}\) hei\ss{}t \textbf{kardinalit"atsmaximal}, falls
+\[
+\forall M' \in \mathcal{M}: |M| \geq |M'|
+\]
+F"ur \(G\) bipartit: \enquote{Maximum Cardinality Bipartite Matching}, kurz \textbf{MCBM}.
+\end{block}
+\end{frame}
+
+%taken out because time is short
+\iffalse
+\begin{frame}{Complete Prime Pairing}
+\setbeamercovered{invisible}
+\begin{block}{Definition}
+Ein \textbf{Complete Prime Pairing} einer Menge \(\varnothing \neq A \subseteq \mathbb{N}\) ist eine selbstinverse, fixpunktfreie Abbildung \(f\colon A \to A\), sodass \(\forall a \in A: a + f(a) \in \mathbb{P}\).
+\end{block}
+
+\begin{block}{Problem}
+Gegeben eine Liste \(N\) von verschiedenen nat"urlichen Zahlen und \(a, b \in N \ (a \neq b)\), existiert ein Complete Prime Pairing von N, in dem \(a\) und \(b\) gepaart werden?\\ 
+\begin{itemize}
+\item Falls \(a+b\notin \mathbb{P}\), gebe \enquote{Nein} aus.\ Ansonsten entferne \(a, b\) aus \(N\).
+\item Setze \(V_1 \defas \set{v\in N \given \text{$v$ gerade}}, V_2 \defas N \setminus V_1\).
+\item Setze \(V \defas N\) und \(E \defas \set{\set{a,b}\given a,b\in N \text{ und } a+b\in \mathbb{P}}\). Dann ist \(G \defas (V, E)\) bipartit.
+\item Berechne ein MCBM \(M\) von \(G\) und gebe \enquote{Ja} aus, falls \(|M| = |V_1| = |V_2|\).
+\end{itemize}
+\end{block}
+\end{frame}
+\fi
+
+\subsection{MCBM Implementierung}
+
+\begin{frame}{MCBM mit Max-Flow}
+\setbeamercovered{invisible}
+\begin{figure}
+\begin{tikzpicture}[scale=1.3, auto,swap]
+	\foreach \pos/\name in {{(0,2)/a}, {(2,1)/b}, {(0,0.5)/c},
+                            {(0,-1)/d}, {(2,-0.5)/e}}
+        \node[vertex] (\name) at \pos {$\name$};
+    \foreach \source/ \dest in {a/b, c/e, d/b, c/b}
+        \path[edge] (\source) -- (\dest);
+
+	\pause
+	\foreach \source/ \dest/ \fr in {s/a/2, s/c/2, s/d/2, b/t/2, e/t/2}
+		\path<\fr->[diredge, dashed] (\source) -- node[pos=0.6, in place] {$1$} (\dest); 
+    
+    
+    \foreach \source/ \dest/ \pos in {a/b/0.5, c/e/0.7, d/b/0.7, c/b/0.5}
+        \path[diredge] (\source) -- node[pos=\pos, in place] {$1$} (\dest);
+    
+	\node[vertex, draw=black] (s) at (-2,0.5) {$s$};
+	\node[vertex, draw=black] (t) at (4,0.5) {$t$};
+    
+	\begin{pgfonlayer}{background}
+        \foreach \source / \dest in {s/a, a/b, b/t, s/c, c/e, e/t}
+            \path<3->[selected edge] (\source.center) -- (\dest.center);
+    \end{pgfonlayer}
+\end{tikzpicture}
+\begin{itemize}
+\item<4-> Edmond-Karp: \(\mathcal{O}(|V|\cdot |E|^2)\)
+\item<4-> Ford-Fulkerson: \(\mathcal{O}(f^* \cdot |E|) = \mathcal{O}(|V| \cdot |E|)\)
+\end{itemize}
+\end{figure}
+\end{frame}
+
+\begin{frame}{MCBM mit Augmenting Paths}
+\setbeamercovered{invisible}
+\begin{block}{Augmenting Paths}
+Sei \(G = (V,E), \ V = V_1 \mathbin{\dot{\cup}} V_2\) bipartit und \(M \subseteq E\) ein Matching.
+
+Ein Pfad \((v_1,...,v_n)\) in \(G\) hei\ss{}t \textbf{Augmenting Path} (in G bzgl. M), falls
+\begin{itemize}
+\item \(v_1 \in V_1 \setminus \bigcup M\) (freier Knoten links)
+\item \(v_n \in V_2 \setminus \bigcup M\) (freier Knoten rechts)
+\item \(\set{v_i, v_{i+1}}\) ist abwechselnd \(\in E\setminus M\) (frei) und \(\in M\) (gematcht)
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{MCBM mit Augmenting Paths}
+\setbeamercovered{invisible}
+\begin{block}{Augmenting Path Algorithmus}
+Gegeben: bipartiter Graph \(G = (V, E)\).
+\begin{itemize}
+\item[(1)] Initialisiere \(M \defas \varnothing\).
+\item[(2)] Suche einen Augmenting Path. Gebe \(M\) aus, falls keinen gefunden.
+\item[(3)] Flippe die Kanten entlang des gefundenen Pfades. Gehe zu (2).
+\end{itemize}
+Findet MCBM in Laufzeit \(\mathcal{O}(|V|\cdot |E|)\).
+\end{block}
+\end{frame}
