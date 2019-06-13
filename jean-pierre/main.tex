@@ -60,15 +60,15 @@
 \end{frame}
 
 \subsection{Sätze}
-\begin{frame}{Zusammenhang zwischen IS und VC}
+\begin{frame}{Zusammenhang zwischen \textbf{IS} und \textbf{VC}}
 	\begin{block}{Satz}
 		Sei $G=(V,E)$ eine Graph und $X\subseteq V$ eine Menge von Knoten. Dann gilt:
-		\[X\text{ ist ein VC von $G$} \Longleftrightarrow V\setminus X\text{ ist ein IS von $G$}\]
+		\[X\text{ ist ein \textbf{VC} von $G$} \Longleftrightarrow V\setminus X\text{ ist ein \textbf{IS} von $G$}\]
 	\end{block}
 	\pause
 	\textbf{Beweis:}
 	\begin{itemize}
-		\item Sei $X$ ein beliebiges VC. Wir behaupten, dass $V\setminus X$ ein IS ist.
+		\item Sei $X$ ein beliebiges \textbf{VC}. Wir behaupten, dass $V\setminus X$ ein IS ist.
 		\item Nehmen wir also das Gegenteil an und führen dies zum Widerspruch:
 		\pause
 		\begin{itemize}
@@ -79,20 +79,19 @@
 		\item Die andere Richtung folgt ähnlich
 	\end{itemize}
 \end{frame}
-\begin{frame}{Größe von IS und VC}
+\begin{frame}{Größe von \textbf{IS} und \textbf{VC}}
 	\begin{block}{Definition}
-		Ein IS/VC ist \textbf{inklusions maximal/minimal}, wenn kein Knoten hinzugefügt/entfernt werden kann ohne die Eigenschaft des IS/VC zu behalten.\\
-		\pause
-		Ein IS/VC ist \textbf{kardinalitäts maximal/minimal}, wenn kein größeres/kleineres IS/VC existiert.
+		Ein \textbf{IS}/\textbf{VC} ist \textbf{inklusions maximal/minimal}, wenn kein Knoten hinzugefügt/entfernt werden kann ohne die Eigenschaft des \textbf{IS}/\textbf{VC} zu behalten.\\
+		Ein \textbf{IS}/\textbf{VC} ist \textbf{kardinalitäts maximal/minimal}, wenn kein größeres/kleineres \textbf{IS}/\textbf{VC} existiert.
 	\end{block}
 	\pause
 	\begin{block}{Bemerkung}
-		Ein kardinalitätsmaximales IS oder ein kardinalitätsminimales VC auszurechnen is $NP$-schwer.
+		Ein kardinalitätsmaximales \textbf{IS} oder ein kardinalitätsminimales \textbf{VC} auszurechnen is $NP$-schwer.
 	\end{block}
 \end{frame}
 \begin{frame}{Satz von König}
 	\begin{block}{Satz (von Dénes König)}
-		In einem bipartiten Graphen ist die Größe eines kardinalitätsminimalem Vertex Cover (VC) gleich der Größe eines Max Cardinality Bipartite Matching (MCBM).
+		In einem bipartiten Graphen ist die Größe eines kardinalitätsminimalem Vertex Cover (\textbf{VC}) gleich der Größe eines Max Cardinality Bipartite Matching (\textbf{MCBM}).
 	\end{block}
 	\pause
 	Etwas informeller aufgeschrieben erhalten wir damit $|VC| = |MCBM|$.\\
@@ -102,7 +101,7 @@
 \begin{frame}{Guardian of Decency}
 	\vspace{-0.3cm}
 	\begin{block}{Aufgabe}
-		Gegeben sind $N\leq 500$ Schüler, beschrieben durch Größe, Geschlecht und Musikgeschmack. Der Lehrer möchte wissen wie viele Schüler maximal auf Klassenfahrt kommen können, ohne dass die Gefahr besteht, dass zwei Schüler ein Paar werden.\\\pause
+		Gegeben sind $N$ Schüler, beschrieben durch Größe, Geschlecht und Musikgeschmack. Der Lehrer möchte wissen wie viele Schüler maximal auf Klassenfahrt kommen können, ohne dass die Gefahr besteht, dass zwei Schüler ein Paar werden.\\\pause
 		Zwei Schüler laufen Gefahr ein Paar zu werden, wenn sie ein unterschiedliches Geschlecht, maximal 40cm Größendifferenz und einen gleichen Musikgeschmack haben.
 	\end{block}
 	\pause
@@ -111,9 +110,9 @@
 		\item Modelliere das Problem als Graphen mit den Schülern als Knoten
 		\item Verbinde Schüler, wenn sie ein Paar werden könnten
 		\pause
-		\item Suche nach einem maximalem IS
+		\item Suche nach einem maximalem \textbf{IS}
 		\pause
 		\item nutze dafür aus, dass der Graph bipartit ist, indem Männchen und Weibchen voneinander getrennt werden
-		\item Berechne mittels Flow $|IS|=|V|-|VC|=|V|-|MCBM|$
+		\item Berechne mittels Flow $|V|-|MCBM|=|V|-|VC|=|IS|$
 	\end{itemize}
 \end{frame}
