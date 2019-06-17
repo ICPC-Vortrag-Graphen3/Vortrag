@@ -29,18 +29,18 @@
         \node[vertex] (\name) at \pos {$\name$};
     \foreach \source/ \dest in {a/b, c/e, d/b, c/b}
         \path[edge] (\source) -- (\dest);
-    
+
 	\begin{pgfonlayer}{background}
         \draw [red, rounded corners,thick, dashed] (-0.7,-1.7) rectangle (0.7,2.7);
         \draw [blue, rounded corners,thick, dashed] (1.3,-1.7) rectangle (2.7,2.7);
-    \end{pgfonlayer}    
-    
+    \end{pgfonlayer}
+
     \foreach \vertex in {a, c, d}
         \path node[red vertex] at (\vertex) {$\vertex$};
     \foreach \vertex in {b,e}
         \path node[blue vertex] at (\vertex) {$\vertex$};
 
-	
+
 \end{tikzpicture}
 \end{figure}
 \end{frame}
@@ -74,7 +74,7 @@ Ein \textbf{Complete Prime Pairing} einer Menge \(\varnothing \neq A \subseteq \
 \end{block}
 
 \begin{block}{Problem}
-Gegeben eine Liste \(N\) von verschiedenen nat"urlichen Zahlen und \(a, b \in N \ (a \neq b)\), existiert ein Complete Prime Pairing von N, in dem \(a\) und \(b\) gepaart werden?\\ 
+Gegeben eine Liste \(N\) von verschiedenen nat"urlichen Zahlen und \(a, b \in N \ (a \neq b)\), existiert ein Complete Prime Pairing von N, in dem \(a\) und \(b\) gepaart werden?\\
 \begin{itemize}
 \item Falls \(a+b\notin \mathbb{P}\), gebe \enquote{Nein} aus.\ Ansonsten entferne \(a, b\) aus \(N\).
 \item Setze \(V_1 \defas \set{v\in N \given \text{$v$ gerade}}, V_2 \defas N \setminus V_1\).
@@ -93,29 +93,29 @@ Gegeben eine Liste \(N\) von verschiedenen nat"urlichen Zahlen und \(a, b \in N 
 \begin{tikzpicture}[scale=1.3, auto,swap]
 	\foreach \pos/\name in {{(0,2)/a}, {(2,1)/b}, {(0,0.5)/c},
                             {(0,-1)/d}, {(2,-0.5)/e}}
-        \node[vertex] (\name) at \pos {$\name$};
+        \node<handout:1->[vertex] (\name) at \pos {$\name$};
     \foreach \source/ \dest in {a/b, c/e, d/b, c/b}
-        \path[edge] (\source) -- (\dest);
+        \path<handout:1->[edge] (\source) -- (\dest);
 
-	\pause
+    \node<handout:2->[vertex, draw=black] (s) at (-2,0.5) {$s$};
+    \node<handout:2->[vertex, draw=black] (t) at (4,0.5) {$t$};
+	%\pause
 	\foreach \source/ \dest/ \fr in {s/a/2, s/c/2, s/d/2, b/t/2, e/t/2}
-		\path<\fr->[diredge, dashed] (\source) -- node[pos=0.6, in place] {$1$} (\dest); 
-    
-    
+		\path<handout:\fr->[diredge, dashed] (\source) -- node[pos=0.6, in place] {$1$} (\dest);
+
+
     \foreach \source/ \dest/ \pos in {a/b/0.5, c/e/0.7, d/b/0.7, c/b/0.5}
-        \path[diredge] (\source) -- node[pos=\pos, in place] {$1$} (\dest);
-    
-	\node[vertex, draw=black] (s) at (-2,0.5) {$s$};
-	\node[vertex, draw=black] (t) at (4,0.5) {$t$};
-    
+        \path<handout:2->[diredge] (\source) -- node[pos=\pos, in place] {$1$} (\dest);
+
+
 	\begin{pgfonlayer}{background}
         \foreach \source / \dest in {s/a, a/b, b/t, s/c, c/e, e/t}
-            \path<3->[selected edge] (\source.center) -- (\dest.center);
+            \path<handout:3->[selected edge] (\source.center) -- (\dest.center);
     \end{pgfonlayer}
 \end{tikzpicture}
 \begin{itemize}
-\item<4-> Edmond-Karp: \(\mathcal{O}(|V|\cdot |E|^2)\)
-\item<4-> Ford-Fulkerson: \(\mathcal{O}(f^* \cdot |E|) = \mathcal{O}(|V| \cdot |E|)\)
+\item<handout:4-> Edmond-Karp: \(\mathcal{O}(|V|\cdot |E|^2)\)
+\item<handout:4-> Ford-Fulkerson: \(\mathcal{O}(f^* \cdot |E|) = \mathcal{O}(|V| \cdot |E|)\)
 \end{itemize}
 \end{figure}
 \end{frame}
