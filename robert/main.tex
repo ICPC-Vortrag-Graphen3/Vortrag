@@ -122,7 +122,7 @@
     \path[diredge]<6> (0.4, -0.6) -- node[pos=0, in place] {5} (B);
 
     \path[edge]<6> (C) -- (1.6, 0.6);
-    \path[diredge]<6> (1.6, 0.6) -- node[pos=0, in place] {15} (D);
+    \path[diredge]<6> (1.6, 0.6) -- node[pos=0, in place] {5} (D);
 
 
     \end{tikzpicture}
@@ -145,14 +145,14 @@
     \begin{itemize}
       \item $F = 0$
       \pause
-      \item Solange ein steigender Pfad p ($s \rightarrow\dots\rightarrow i$ $\rightarrow j\rightarrow\dots\rightarrow t$) von $s$ nach $t$ existiert:
+      \item Solange ein augmenting Pfad p ($s \rightarrow\dots\rightarrow i$ $\rightarrow j\rightarrow\dots\rightarrow t$) von $s$ nach $t$ existiert:
       \pause
       \begin{itemize}
       \item 1. finde minimale Kante $f$ auf dem Pfad
       \pause
       \item 2. Kapazität aller Kanten in Pfadrichtung (z.B. $i\rightarrow j$) um $f$ reduzieren
       \pause
-      \item 3. Kapazität aller Kanten gegen Pfadrichtung (z.B. $j\rightarrow i$) um $f$ erhöhen 
+      \item 3. Kapazität aller Kanten gegen Pfadrichtung (z.B. $j\rightarrow i$) um $f$ erhöhen
       \pause
       \item $F \mathrel{+}= f$;
       \end{itemize}
